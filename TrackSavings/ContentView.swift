@@ -46,6 +46,7 @@ struct ContentView: View {
                     VStack{
                         Text("My Goals")
                             .font(.title)
+                            .bold()
                         List{
                             ForEach(Goals) { goal in
                                 HStack{
@@ -54,14 +55,14 @@ struct ContentView: View {
                                 }
                             }
                         }
-                        .listStyle(PlainListStyle())
+                        .listStyle(.plain)
                         .background(Color.clear)
                         
                         Button("Add Goal") {
                             addNewModalView.toggle()
                         }
                         .sheet(isPresented: $addNewModalView) {
-                            NewGoalView()
+                            NewGoalView(isPresented: $addNewModalView)
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
