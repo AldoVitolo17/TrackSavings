@@ -31,41 +31,63 @@ struct ContentView: View {
     @State private var addNewModalView = false
     
     var body: some View {
-        ZStack{
-            Color("PrimaryColor")
-                .ignoresSafeArea(edges: .top)
-            VStack {
-                VStack{
-                    Text("Total **saved:**")
-                    Text("$\(totalAmountSaved, specifier: "%.2f")")
-                }
-                
-                VStack{
-                    Text("My Goals")
-                        .font(.title)
-                    List{
-                        ForEach(Goals) { goal in
-                            HStack{
-                                Text(goal.tag) //This will be changed for the progress circle
-                                Text(goal.name)
+        NavigationStack {
+            ZStack{
+                Color("PrimaryColor")
+                    .ignoresSafeArea(edges: .all)
+                VStack {
+                    VStack{
+                        Text("Total **saved:**")
+                        Text("$\(totalAmountSaved, specifier: "%.2f")")
+                    }
+                    .font(.title)
+                    .padding()
+                    
+                    VStack{
+                        Text("My Goals")
+                            .font(.title)
+                        List{
+                            ForEach(Goals) { goal in
+                                HStack{
+                                    Text(goal.tag) //This will be changed for the progress circle
+                                    Text(goal.name)
+                                }
                             }
                         }
+                        .listStyle(PlainListStyle())
+                        .background(Color.clear)
+                        
+                        Button("Add Goal") {
+                            addNewModalView.toggle()
+                        }
+                        .sheet(isPresented: $addNewModalView) {
+                            NewGoalView()
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color("PrimaryColor"))
+                        .foregroundStyle(.primary)
+                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                        .shadow(color: .gray, radius: 2, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2)
                     }
+                    .padding()
+                    .padding([.bottom,.horizontal], 20)
                     .background(Color("BackgroundColor"))
-                    
-                    Button("Add Goal") {
-                        addNewModalView.toggle()
+                    .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
                     }
-                    .sheet(isPresented: $addNewModalView) {
-                        NewGoalView()
+                .ignoresSafeArea(edges: .bottom)
+
+            }
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button {
+                        print("Configuration button was tapped")
+                    } label: {
+                        Image(systemName: "gear")
+                            .foregroundStyle(Color.primary)
                     }
                 }
-                .padding()
-                .background(Color("BackgroundColor"))
-                .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
             }
-            .padding()
-            
         }
     }
 }
