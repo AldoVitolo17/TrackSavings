@@ -7,18 +7,69 @@
 
 import SwiftUI
 
+
+//Struct for dummy data purposes
+private struct Goal: Identifiable {
+    let id = UUID() // Using ObjectIdentifier to generate a unique ID
+    let name: String
+    let tag: String
+    var date: Date
+    var goalAmount: Double
+    var savedAmount: Double
+    var notificationType: Int
+}
+
+//Dummy data for testing purposes
+private let Goals: [Goal] = [
+    Goal(name: "Buy a new laptop", tag: "Electronics", date: Date(), goalAmount: 1500.0, savedAmount: 0.0, notificationType: 1),
+    Goal(name: "Take a vacation to Hawaii", tag: "Travel", date: Date(), goalAmount: 5000.0, savedAmount: 2000.0, notificationType: 2),
+    Goal(name: "Purchase a new car", tag: "Automobile", date: Date(), goalAmount: 30000.0, savedAmount: 10000.0, notificationType: 3)
+]
+
 struct ContentView: View {
+    @State var totalAmountSaved: Double
+    @State private var addNewModalView = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack{
+            Color("PrimaryColor")
+                .ignoresSafeArea(edges: .top)
+            VStack {
+                VStack{
+                    Text("Total **saved:**")
+                    Text("$\(totalAmountSaved, specifier: "%.2f")")
+                }
+                
+                VStack{
+                    Text("My Goals")
+                        .font(.title)
+                    List{
+                        ForEach(Goals) { goal in
+                            HStack{
+                                Text(goal.tag) //This will be changed for the progress circle
+                                Text(goal.name)
+                            }
+                        }
+                    }
+                    .background(Color("BackgroundColor"))
+                    
+                    Button("Add Goal") {
+                        addNewModalView.toggle()
+                    }
+                    .sheet(isPresented: $addNewModalView) {
+                        NewGoalView()
+                    }
+                }
+                .padding()
+                .background(Color("BackgroundColor"))
+                .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
+            }
+            .padding()
+            
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(totalAmountSaved: 0)
 }

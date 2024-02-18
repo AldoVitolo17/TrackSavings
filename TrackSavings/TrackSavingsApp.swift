@@ -11,7 +11,7 @@ import SwiftUI
 struct TrackSavingsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(totalAmountSaved: 0)
         }
     }
 }
