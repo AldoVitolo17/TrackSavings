@@ -11,8 +11,7 @@ struct NewGoalView: View {
     @Binding var isPresented: Bool
     @Environment(\.modelContext) private var modelContext
     @Environment (\.dismiss) private var dismiss
-    @Query private var purchase: [Purchase] = []
-    @State private var purchases: Purchase? = nil
+    @Query private var purchases: [Purchase]
     @State private var item: String = ""
     @State private var image: String = ""
     @State private var cost: Double = Double()
@@ -40,6 +39,10 @@ struct NewGoalView: View {
                     }
 
                 List{
+                    HStack{
+                        Image(systemName: "")
+                        TextField("Goal Name", text: $item)
+                    }
                     Button(action: {
                         
                     }, label: {
@@ -95,17 +98,10 @@ struct NewGoalView: View {
     
     
     //MARK: - private mehods
-    private func savePurchase(){
-        if let purchases {
-            purchases.item = item
-            purchases.image = image
-            purchases.cost = cost
-            try? modelContext.save()
-        }
-        else{
-            let newPurchase = Purchase(item: item, image: image, cost: cost, savings: cost, date: date)
-            modelContext.insert(newPurchase)
-        }
+    private func savePurchase() {
+        let newPurchase = Purchase(item: item, image: image, cost: cost, savings: cost, date: date)
+        modelContext.insert(newPurchase)
+        try? modelContext.save()
     }
 }
 

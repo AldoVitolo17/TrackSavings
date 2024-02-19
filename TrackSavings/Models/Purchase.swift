@@ -21,7 +21,7 @@ final class Purchase: Identifiable{
     init(id: String = UUID().uuidString,item: String,image: String, cost: Double, savings: Double, date: Date){
         self.item = item
         self.image = image
-        self.cost = 0
+        self.cost = Double()
         self.savings = 0
         self.date = date
     }

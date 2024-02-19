@@ -29,7 +29,7 @@ import SwiftUI
 struct ContentView: View {
     @State var totalAmountSaved: Double
     @State private var addNewModalView = false
-    @Query private var purchase: [Purchase] = []
+    @Query private var purchases: [Purchase]
     
     var body: some View {
         NavigationStack {
@@ -48,17 +48,14 @@ struct ContentView: View {
                         Text("My Goals")
                             .font(.title)
                             .bold()
-                        List{
-                            ForEach(Purchase) { purchase in
-                                HStack{
-                                    Text($purchase.item) //This will be changed for the progress circle
-                                    Text($purchase.cost)
-                                }
+                        List(purchases) { purchase in
+                            HStack {
+                                Text(purchase.item) //This will be changed for the progress circle
+                                Text("$\(purchase.cost)")
                             }
                         }
                         .listStyle(.plain)
                         .background(Color.clear)
-                        
                         Button("Add Goal") {
                             addNewModalView.toggle()
                         }

@@ -12,6 +12,8 @@ struct TrackSavingsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(totalAmountSaved: 0)
+                .modelContainer(for: Purchase.self)
         }
+    
     }
 }
