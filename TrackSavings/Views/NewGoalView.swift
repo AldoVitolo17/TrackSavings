@@ -4,19 +4,27 @@
 //
 //  Created by Gustavo Isaac Lopez Nunez on 18/02/24.
 //
-
+import SwiftData
 import SwiftUI
 
 struct NewGoalView: View {
     @Binding var isPresented: Bool
-    @Environment(\.dismiss) var dismiss
-    @State private var amount: Double = Double()
+    @Environment(\.modelContext) private var modelContext
+    @Environment (\.dismiss) private var dismiss
+    @Query private var purchase: [Purchase] = []
+    @State private var purchases: Purchase? = nil
+    @State private var item: String = ""
+    @State private var image: String = ""
+    @State private var cost: Double = Double()
+    @State private var savings: Double = Double()
+    @State private var date: Date = Date()
+    //@State private var amount: Double = Double()
     @FocusState private var keyboardFocused: Bool
     
     var body: some View {
         NavigationView {
             VStack{
-                TextField("$0,00", value: $amount, format: .number)
+                TextField("$0,00", value: $cost, format: .number)
                     .padding()
                     .background(Color("PrimaryColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -71,7 +79,8 @@ struct NewGoalView: View {
                 }
                 ToolbarItem(placement: .automatic) {
                     Button("Add") {
-                        
+                        savePurchase()
+                        dismiss()
                     }
                 }
             }
@@ -81,6 +90,21 @@ struct NewGoalView: View {
             .toolbarBackground(.visible, for: .navigationBar)
 
 
+        }
+    }
+    
+    
+    //MARK: - private mehods
+    private func savePurchase(){
+        if let purchases {
+            purchases.item = item
+            purchases.image = image
+            purchases.cost = cost
+            try? modelContext.save()
+        }
+        else{
+            let newPurchase = Purchase(item: item, image: image, cost: cost, savings: cost, date: date)
+            modelContext.insert(newPurchase)
         }
     }
 }
