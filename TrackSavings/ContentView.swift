@@ -29,6 +29,10 @@ private let Goals: [Goal] = [
 struct ContentView: View {
     @State var totalAmountSaved: Double
     @State private var addNewModalView = false
+    @State private var showingSettingsMenu = false
+    @State private var selectedLanguage = "English"
+    @State private var selectedCurrency = "USD"
+
     
     var body: some View {
         NavigationStack {
@@ -58,37 +62,45 @@ struct ContentView: View {
                         .listStyle(.plain)
                         .background(Color.clear)
                         
-                        Button("Add Goal") {
+                        Button(action: {
                             addNewModalView.toggle()
+                        }) {
+                            Text("Add Goal")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color("PrimaryColor"))
+                                .foregroundColor(.primary) // Use foregroundColor for text color
+                                .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         }
                         .sheet(isPresented: $addNewModalView) {
                             NewGoalView(isPresented: $addNewModalView)
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color("PrimaryColor"))
-                        .foregroundStyle(.primary)
-                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                        .shadow(color: .gray, radius: 2, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2)
+                        .shadow(color: .gray, radius: 2, x: 0.0, y: 2)
+
                     }
                     .padding()
                     .padding([.bottom,.horizontal], 20)
                     .background(Color("BackgroundColor"))
-                    .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
-                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                }
                 .ignoresSafeArea(edges: .bottom)
-
+                
             }
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     Button {
-                        print("Configuration button was tapped")
+                        showingSettingsMenu.toggle()
                     } label: {
                         Image(systemName: "gear")
                             .foregroundStyle(Color.primary)
                     }
                 }
             }
+            .popover(isPresented: $showingSettingsMenu) {
+                // Content of the popover
+                SettingsMenu(selectedLanguage: $selectedLanguage, selectedCurrency: $selectedCurrency)
+            }
+
         }
     }
 }

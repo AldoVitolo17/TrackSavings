@@ -10,13 +10,14 @@ import SwiftUI
 struct NewGoalView: View {
     @Binding var isPresented: Bool
     @Environment(\.dismiss) var dismiss
-    @State private var amount: Double = Double()
+    @State private var amountString: String = "" // Use a String for user input
+    @State private var amount: Double? // Optional to handle non-numeric inputs gracefully
     @FocusState private var keyboardFocused: Bool
     
     var body: some View {
         NavigationView {
             VStack{
-                TextField("$0,00", value: $amount, format: .number)
+                TextField("$0.00", text: $amountString) // Bind to the String
                     .padding()
                     .background(Color("PrimaryColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -29,6 +30,9 @@ struct NewGoalView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             keyboardFocused = true
                         }
+                    }
+                     .onChange(of: amountString) { newValue in
+                         self.amount = Double(newValue) // Convert the input to Double
                     }
 
                 List{
