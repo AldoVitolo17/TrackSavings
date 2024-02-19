@@ -29,9 +29,13 @@ private let Goals: [Goal] = [
 struct ContentView: View {
     @State var totalAmountSaved: Double
     @State private var addNewModalView = false
-    @State private var showingSettingsMenu = false
     @State private var selectedLanguage = "English"
     @State private var selectedCurrency = "USD"
+    @State private var showingLanguageSelection = false
+    @State private var showingCurrencySelection = false
+    @State private var isLanguageMenuExpanded = false
+    @State private var isCurrencyMenuExpanded = false
+
 
     
     var body: some View {
@@ -88,19 +92,36 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .automatic) {
-                    Button {
-                        showingSettingsMenu.toggle()
+                    Menu {
+                        // Language Menu Item
+                        Button(action: {
+                            isLanguageMenuExpanded.toggle()
+                        }) {
+                            Label("**Language**", systemImage: isLanguageMenuExpanded ? "chevron.up" : "chevron.down")
+                        }
+                        if isLanguageMenuExpanded {
+                            Button("English") { selectedLanguage = "English" }
+                            Button("Spanish") { selectedLanguage = "Spanish" }
+                            Button("French") { selectedLanguage = "French" }
+                        }
+
+                        // Currency Menu Item
+                        Button(action: {
+                            isCurrencyMenuExpanded.toggle()
+                        }) {
+                            Label("**Currency**", systemImage: isCurrencyMenuExpanded ? "chevron.up" : "chevron.down")
+                        }
+                        if isCurrencyMenuExpanded {
+                            Button("EUR") { selectedCurrency = "EUR" }
+                            Button("USD") { selectedCurrency = "USD" }
+                            Button("JPY") { selectedCurrency = "JPY" }
+                        }
                     } label: {
                         Image(systemName: "gear")
                             .foregroundStyle(Color.primary)
                     }
                 }
             }
-            .popover(isPresented: $showingSettingsMenu) {
-                // Content of the popover
-                SettingsMenu(selectedLanguage: $selectedLanguage, selectedCurrency: $selectedCurrency)
-            }
-
         }
     }
 }
