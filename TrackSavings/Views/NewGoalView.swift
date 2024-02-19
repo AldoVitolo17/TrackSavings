@@ -31,7 +31,6 @@ struct NewGoalView: View {
                     .multilineTextAlignment(.center)
                     .font(.title)
                     .focused($keyboardFocused)
-                    .keyboardType(.numberPad)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             keyboardFocused = true
@@ -103,6 +102,12 @@ struct NewGoalView: View {
         modelContext.insert(newPurchase)
         try? modelContext.save()
     }
+    
+    private let currencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }()
 }
 
 #Preview {
