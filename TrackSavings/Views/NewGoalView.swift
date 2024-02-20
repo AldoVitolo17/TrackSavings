@@ -14,6 +14,7 @@ struct NewGoalView: View {
     @Query private var purchases: [Purchase]
     @State private var item: String = ""
     @State private var image: String = ""
+    @State private var costText: String = ""
     @State private var cost: Double = Double()
     @State private var savings: Double = Double()
     @State private var date: Date = Date()
@@ -23,7 +24,7 @@ struct NewGoalView: View {
     var body: some View {
         NavigationView {
             VStack{
-                TextField("$0,00", value: $cost, format: .number)
+                TextField("$0.00", text: $costText) // Bind to the String
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
@@ -38,6 +39,9 @@ struct NewGoalView: View {
                         }
                     }
                     .keyboardType(.decimalPad)
+                    .onChange(of: costText) { newValue in
+                        self.cost = Double(newValue) ?? 0 // Convert the input to Double
+                    }
 
                 List{
                     HStack{
