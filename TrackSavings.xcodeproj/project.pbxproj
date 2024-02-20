@@ -12,6 +12,7 @@
 		6ADC0A4C2B7BB369006C2134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ADC0A4B2B7BB369006C2134 /* Assets.xcassets */; };
 		6ADC0A4F2B7BB369006C2134 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ADC0A4E2B7BB369006C2134 /* Preview Assets.xcassets */; };
 		6AF8295A2B826E9C0006F5F7 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF829592B826E9C0006F5F7 /* Purchase.swift */; };
+		C8FBF9982B84E9A2008F4920 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FBF9972B84E9A2008F4920 /* LocalNotifications.swift */; };
 		EC0848512B82286C00850D7F /* NewGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0848502B82286C00850D7F /* NewGoalView.swift */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +23,7 @@
 		6ADC0A4B2B7BB369006C2134 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6ADC0A4E2B7BB369006C2134 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6AF829592B826E9C0006F5F7 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
+		C8FBF9972B84E9A2008F4920 /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 		EC0848502B82286C00850D7F /* NewGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +60,7 @@
 				6ADC0A472B7BB368006C2134 /* TrackSavingsApp.swift */,
 				6AF829582B826E440006F5F7 /* Views */,
 				6AF8295B2B826EC90006F5F7 /* Models */,
+				C8FBF9962B84E97D008F4920 /* Notifications */,
 				6ADC0A4B2B7BB369006C2134 /* Assets.xcassets */,
 				6ADC0A4D2B7BB369006C2134 /* Preview Content */,
 			);
@@ -87,6 +90,14 @@
 				6AF829592B826E9C0006F5F7 /* Purchase.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C8FBF9962B84E97D008F4920 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				C8FBF9972B84E9A2008F4920 /* LocalNotifications.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +173,7 @@
 				6AF8295A2B826E9C0006F5F7 /* Purchase.swift in Sources */,
 				6ADC0A4A2B7BB368006C2134 /* ContentView.swift in Sources */,
 				EC0848512B82286C00850D7F /* NewGoalView.swift in Sources */,
+				C8FBF9982B84E9A2008F4920 /* LocalNotifications.swift in Sources */,
 				6ADC0A482B7BB368006C2134 /* TrackSavingsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,7 +308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrackSavings/Preview Content\"";
-				DEVELOPMENT_TEAM = 457CNACK2W;
+				DEVELOPMENT_TEAM = VBGYUNBKAG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -325,7 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrackSavings/Preview Content\"";
-				DEVELOPMENT_TEAM = 457CNACK2W;
+				DEVELOPMENT_TEAM = VBGYUNBKAG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
