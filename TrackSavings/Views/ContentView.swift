@@ -53,7 +53,7 @@ struct ContentView: View {
                         List(purchases) { purchase in
                             HStack {
                                 Text(purchase.item) //This will be changed for the progress circle
-                                Text("$\(purchase.cost)")
+                                Text("$\(purchase.cost, specifier: "%.2f")")
                             }
                             .foregroundStyle(Color("TextPrimaryColor"))
                             .listRowBackground(Color.clear)
@@ -61,7 +61,7 @@ struct ContentView: View {
                         }
                         .listStyle(.plain)
                         .background(Color.clear)
-
+                        
                         Button(action: { addNewModalView.toggle() }) {
                             Text("Add Goal")
                                 .frame(maxWidth: .infinity)
@@ -78,9 +78,9 @@ struct ContentView: View {
                     .padding()
                     .padding([.bottom,.horizontal], 20)
                     .background(Color("BackgroundColor"))
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0))                }
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                }
                 .ignoresSafeArea(edges: .bottom)
-                
             }
             .toolbar {
                 ToolbarItem(placement: .automatic) {
