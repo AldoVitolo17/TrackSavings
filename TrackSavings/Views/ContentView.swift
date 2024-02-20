@@ -42,27 +42,32 @@ struct ContentView: View {
                         Text("$\(totalAmountSaved, specifier: "%.2f")")
                     }
                     .font(.title)
+                    .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
                     
                     VStack{
                         Text("My Goals")
                             .font(.title)
+                            .foregroundStyle(Color("TextPrimaryColor"))
                             .bold()
                         List(purchases) { purchase in
                             HStack {
                                 Text(purchase.item) //This will be changed for the progress circle
                                 Text("$\(purchase.cost)")
                             }
+                            .foregroundStyle(Color("TextPrimaryColor"))
+                            .listRowBackground(Color.clear)
+                            .listRowSeparatorTint(Color("TextPrimaryColor"))
                         }
                         .listStyle(.plain)
                         .background(Color.clear)
-                        Button(action: {                            addNewModalView.toggle()
-                        }) {
+
+                        Button(action: { addNewModalView.toggle() }) {
                             Text("Add Goal")
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color("PrimaryColor"))
-                                .foregroundColor(.primary) // Use foregroundColor for text color
+                                .foregroundStyle(Color("TextPrimaryColor"))
                                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         }
                         .sheet(isPresented: $addNewModalView) {
@@ -83,7 +88,7 @@ struct ContentView: View {
                         print("Configuration button was tapped")
                     } label: {
                         Image(systemName: "gear")
-                            .foregroundStyle(Color.primary)
+                            .foregroundStyle(Color("TextPrimaryColor"))
                     }
                 }
             }

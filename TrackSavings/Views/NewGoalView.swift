@@ -24,6 +24,7 @@ struct NewGoalView: View {
         NavigationView {
             VStack{
                 TextField("$0,00", value: $cost, format: .number)
+                    .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -39,9 +40,13 @@ struct NewGoalView: View {
 
                 List{
                     HStack{
-                        Image(systemName: "")
-                        TextField("Goal Name", text: $item)
+                        Image(systemName: "target")
+                        TextField("", text: $item, prompt: Text("Goal Name").foregroundColor(Color("TextSecondaryColor").opacity(0.36)))
                     }
+                    .foregroundStyle(Color("TextPrimaryColor"))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
+                    
                     Button(action: {
                         
                     }, label: {
@@ -50,6 +55,10 @@ struct NewGoalView: View {
                             Text("Calendar")
                         }
                     })
+                    .foregroundStyle(Color("TextPrimaryColor"))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
+
                     Button(action: {
                         
                     }, label: {
@@ -58,6 +67,10 @@ struct NewGoalView: View {
                             Text("Notification")
                         }
                     })
+                    .foregroundStyle(Color("TextPrimaryColor"))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
+
                     Button(action: {
                         
                     }, label: {
@@ -66,8 +79,14 @@ struct NewGoalView: View {
                             Text("Tag")
                         }
                     })
-                }.listStyle(.plain)
+                    .foregroundStyle(Color("TextPrimaryColor"))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
+                }
+                .listStyle(.plain)
+                .background(Color.clear)
             }
+            .navigationTitle("New Goal")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
@@ -86,12 +105,12 @@ struct NewGoalView: View {
                     }
                 }
             }
-            .navigationTitle("New Goal")
+            .toolbarColorScheme(.light, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-
-
+            .background(Color("BackgroundColor"))
+            .foregroundStyle(Color("TextPrimaryColor"))
         }
     }
     
