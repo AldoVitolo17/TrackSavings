@@ -21,6 +21,8 @@ struct NewGoalView: View {
     //@State private var amount: Double = Double()
     @FocusState private var keyboardFocused: Bool
     
+    
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -98,24 +100,29 @@ struct NewGoalView: View {
                         dismiss()
                     }, label: {
                         HStack{
-                            Image(systemName:  "chevron.left")
-                            Text("Back")
+                            
+                            Text("Cancel")
                         }
                     })
                 }
                 ToolbarItem(placement: .automatic) {
                     Button("Add") {
-                        savePurchase()
-                        dismiss()
-                    }
+                        if !item.isEmpty {
+                            withAnimation{
+                                savePurchase()
+                                dismiss()
+                            }
+                        }
+                    }.disabled(item.isEmpty)
                 }
+
             }
             .toolbarColorScheme(.light, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .background(Color("BackgroundColor"))
-            .foregroundStyle(Color("TextPrimaryColor"))
+            
         }
     }
     
