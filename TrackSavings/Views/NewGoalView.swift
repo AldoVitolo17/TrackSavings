@@ -18,6 +18,7 @@ struct NewGoalView: View {
     @State private var cost: Double = Double()
     @State private var savings: Double = Double()
     @State private var date: Date = Date()
+    @State private var notificationType: Int = 0
     //@State private var amount: Double = Double()
     @FocusState private var keyboardFocused: Bool
     
@@ -26,7 +27,7 @@ struct NewGoalView: View {
     var body: some View {
         NavigationView {
             VStack{
-                TextField("$0.00", text: $costText) // Bind to the String
+                TextField("", text: $costText, prompt: Text("Goal Amount").foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
@@ -57,33 +58,48 @@ struct NewGoalView: View {
                     Button(action: {
                         
                     }, label: {
-                        HStack{
-                            Image(systemName: "calendar")
-                            Text("Calendar")
+                        DatePicker(selection: $date, in: Date.now..., displayedComponents: .date) {
+                            HStack{
+                                Image(systemName: "calendar")
+                                Text("Calendar")
+                            }
                         }
                     })
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
-
+                    
                     Button(action: {
                         
                     }, label: {
                         HStack{
                             Image(systemName: "bell.fill")
-                            Text("Notification")
+                            Text("Reminder")
+                            Spacer()
+                            Picker("", selection: $notificationType) {
+                                Text("Daily")
+                                Text("Weekly")
+                                Text("Monthly")
+                            }
                         }
                     })
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
-
+                    
                     Button(action: {
                         
                     }, label: {
                         HStack{
                             Image(systemName: "tag.fill")
                             Text("Tag")
+                            Spacer()
+                            Picker("", selection: $image) {
+                                Image(systemName: "car")
+                                Image(systemName: "phone")
+                                Image(systemName: "car")
+                            }
+
                         }
                     })
                     .foregroundStyle(Color("TextPrimaryColor"))
