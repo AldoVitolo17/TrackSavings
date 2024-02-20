@@ -22,7 +22,17 @@ struct NewGoalView: View {
     //@State private var amount: Double = Double()
     @FocusState private var keyboardFocused: Bool
     
+    @State private var selectedItem: Item = .car
+    enum Item: String, CaseIterable, Identifiable{
+        case car, phone, gamecontroller
+        var id: Self {self}
+    }
     
+    @State private var selectedReminder: Reminder = .daily
+    enum Reminder: String, CaseIterable, Identifiable{
+        case daily, weekly, monthly
+        var id: Self {self}
+    }
     
     var body: some View {
         NavigationView {
@@ -76,10 +86,10 @@ struct NewGoalView: View {
                             Image(systemName: "bell.fill")
                             Text("Reminder")
                             Spacer()
-                            Picker("", selection: $notificationType) {
-                                Text("Daily")
-                                Text("Weekly")
-                                Text("Monthly")
+                            Picker("", selection: $selectedReminder) {
+                                Text("Daily").tag(Reminder.daily)
+                                Text("Weekly").tag(Reminder.weekly)
+                                Text("Monthly").tag(Reminder.monthly)
                             }
                         }
                     })
@@ -94,10 +104,11 @@ struct NewGoalView: View {
                             Image(systemName: "tag.fill")
                             Text("Tag")
                             Spacer()
-                            Picker("", selection: $image) {
-                                Image(systemName: "car")
-                                Image(systemName: "phone")
-                                Image(systemName: "car")
+                            
+                            Picker("", selection: $selectedItem){
+                                Image(systemName: "car").tag(NewGoalView.Item.car)
+                                Image(systemName: "phone").tag(NewGoalView.Item.phone)
+                                Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller)
                             }
 
                         }
@@ -123,13 +134,13 @@ struct NewGoalView: View {
                 }
                 ToolbarItem(placement: .automatic) {
                     Button("Add") {
-                        if !item.isEmpty {
+                        if !item.isEmpty && !costText.isEmpty {
                             withAnimation{
                                 savePurchase()
                                 dismiss()
                             }
                         }
-                    }.disabled(item.isEmpty)
+                    }.disabled(item.isEmpty && costText.isEmpty)
                 }
 
             }
