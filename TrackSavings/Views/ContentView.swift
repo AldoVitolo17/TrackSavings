@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var totalAmountSaved: Double
-    @State private var addNewModalView = false
+    @State private var newGoalModal = false
+    @State private var addSavingModal = false
     @Query private var purchases: [Purchase]
     
     var body: some View {
@@ -27,10 +28,21 @@ struct ContentView: View {
                     .padding()
                     
                     VStack{
-                        Text("My Goals")
-                            .font(.title)
-                            .foregroundStyle(Color("TextPrimaryColor"))
-                            .bold()
+                        HStack{
+                            Text("My Goals")
+                                .font(.title)
+                                .foregroundStyle(Color("TextPrimaryColor"))
+                                .bold()
+                            Spacer()
+                            Button(action: { newGoalModal.toggle() }) {
+                                Image(systemName: "plus")
+                                    .foregroundStyle(Color("TextPrimaryColor"))
+                            }
+                            .sheet(isPresented: $newGoalModal) {
+                                NewGoalView(isPresented: $newGoalModal)
+                            }
+
+                        }
                         List(purchases) { purchase in
                             HStack {
                                 Text(purchase.item) //This will be changed for the progress circle
@@ -43,16 +55,16 @@ struct ContentView: View {
                         .listStyle(.plain)
                         .background(Color.clear)
                         
-                        Button(action: { addNewModalView.toggle() }) {
-                            Text("Add Goal")
+                        Button(action: { addSavingModal.toggle() }) {
+                            Text("Add Savings")
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color("PrimaryColor"))
                                 .foregroundStyle(Color("TextPrimaryColor"))
                                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         }
-                        .sheet(isPresented: $addNewModalView) {
-                            NewGoalView(isPresented: $addNewModalView)
+                        .sheet(isPresented: $addSavingModal) {
+                            AddSavingView(isPresented: $addSavingModal)
                         }
                         .shadow(color: .gray, radius: 2, x: 0.0, y: 2)
                     }

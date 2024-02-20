@@ -16,12 +16,10 @@ struct NewGoalView: View {
     @State private var image: String = ""
     @State private var costText: String = ""
     @State private var cost: Double = Double()
-    @State private var savings: Double = Double()
+    @State private var savings: [Saving] = []
     @State private var date: Date = Date()
     @State private var notificationType: Int = 0
-    //@State private var amount: Double = Double()
     @FocusState private var keyboardFocused: Bool
-    
     @State private var selectedItem: Item = .car
     enum Item: String, CaseIterable, Identifiable{
         case car, phone, gamecontroller
@@ -65,54 +63,42 @@ struct NewGoalView: View {
                     .listRowBackground(Color.clear)
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
                     
-                    Button(action: {
-                        
-                    }, label: {
-                        DatePicker(selection: $date, in: Date.now..., displayedComponents: .date) {
-                            HStack{
-                                Image(systemName: "calendar")
-                                Text("Calendar")
-                            }
+                    DatePicker(selection: $date, in: Date.now..., displayedComponents: .date) {
+                        HStack{
+                            Image(systemName: "calendar")
+                            Text("Calendar")
                         }
-                    })
+                    }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
                     
-                    Button(action: {
-                        
-                    }, label: {
-                        HStack{
-                            Image(systemName: "bell.fill")
-                            Text("Reminder")
-                            Spacer()
-                            Picker("", selection: $selectedReminder) {
-                                Text("Daily").tag(Reminder.daily)
-                                Text("Weekly").tag(Reminder.weekly)
-                                Text("Monthly").tag(Reminder.monthly)
-                            }
+                    HStack{
+                        Image(systemName: "bell.fill")
+                        Text("Reminder")
+                        Spacer()
+                        Picker("", selection: $selectedReminder) {
+                            Text("Daily").tag(Reminder.daily)
+                            Text("Weekly").tag(Reminder.weekly)
+                            Text("Monthly").tag(Reminder.monthly)
                         }
-                    })
+                    }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
                     
-                    Button(action: {
+                    HStack{
+                        Image(systemName: "tag.fill")
+                        Text("Tag")
+                        Spacer()
                         
-                    }, label: {
-                        HStack{
-                            Image(systemName: "tag.fill")
-                            Text("Tag")
-                            Spacer()
-                            
-                            Picker("", selection: $selectedItem){
-                                Image(systemName: "car").tag(NewGoalView.Item.car)
-                                Image(systemName: "phone").tag(NewGoalView.Item.phone)
-                                Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller)
-                            }
-
+                        Picker("", selection: $selectedItem){
+                            Image(systemName: "car").tag(NewGoalView.Item.car)
+                            Image(systemName: "phone").tag(NewGoalView.Item.phone)
+                            Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller)
                         }
-                    })
+                        
+                    }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
@@ -156,16 +142,10 @@ struct NewGoalView: View {
     
     //MARK: - private mehods
     private func savePurchase() {
-        let newPurchase = Purchase(item: item, image: image, cost: cost, savings: cost, date: date)
+        let newPurchase = Purchase(item: item, image: image, cost: cost, savings: savings, date: date)
         modelContext.insert(newPurchase)
         try? modelContext.save()
     }
-    
-    private let currencyFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }()
 }
 
 #Preview {

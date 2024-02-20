@@ -15,10 +15,10 @@ final class Purchase: Identifiable{
     var item: String
     var image: String
     var cost: Double
-    var savings: Double
+    var savings: [Saving]
     var date: Date
     
-    init(id: String = UUID().uuidString,item: String,image: String, cost: Double, savings: Double, date: Date){
+    init(id: String = UUID().uuidString,item: String,image: String, cost: Double, savings: [Saving], date: Date){
         self.item = item
         self.image = image
         self.cost = cost
