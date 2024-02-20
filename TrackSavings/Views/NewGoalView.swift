@@ -37,6 +37,7 @@ struct NewGoalView: View {
                             keyboardFocused = true
                         }
                     }
+                    .keyboardType(.decimalPad)
 
                 List{
                     HStack{
