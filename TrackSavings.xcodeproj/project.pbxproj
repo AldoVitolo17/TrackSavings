@@ -11,11 +11,12 @@
 		6ADC0A4A2B7BB368006C2134 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADC0A492B7BB368006C2134 /* ContentView.swift */; };
 		6ADC0A4C2B7BB369006C2134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ADC0A4B2B7BB369006C2134 /* Assets.xcassets */; };
 		6ADC0A4F2B7BB369006C2134 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ADC0A4E2B7BB369006C2134 /* Preview Assets.xcassets */; };
-		6AF8295A2B826E9C0006F5F7 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF829592B826E9C0006F5F7 /* Purchase.swift */; };
+		6AF8295A2B826E9C0006F5F7 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF829592B826E9C0006F5F7 /* Goal.swift */; };
 		C8FBF9982B84E9A2008F4920 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FBF9972B84E9A2008F4920 /* LocalNotifications.swift */; };
 		EC0848512B82286C00850D7F /* NewGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0848502B82286C00850D7F /* NewGoalView.swift */; };
 		EC93BA732B8528770049C783 /* AddSavingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA722B8528770049C783 /* AddSavingView.swift */; };
 		EC93BA752B85299A0049C783 /* Saving.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA742B85299A0049C783 /* Saving.swift */; };
+		EC93BA772B8536450049C783 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA762B8536450049C783 /* GoalDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,11 +25,12 @@
 		6ADC0A492B7BB368006C2134 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6ADC0A4B2B7BB369006C2134 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6ADC0A4E2B7BB369006C2134 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6AF829592B826E9C0006F5F7 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
+		6AF829592B826E9C0006F5F7 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		C8FBF9972B84E9A2008F4920 /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
 		EC0848502B82286C00850D7F /* NewGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGoalView.swift; sourceTree = "<group>"; };
 		EC93BA722B8528770049C783 /* AddSavingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingView.swift; sourceTree = "<group>"; };
 		EC93BA742B85299A0049C783 /* Saving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saving.swift; sourceTree = "<group>"; };
+		EC93BA762B8536450049C783 /* GoalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				6ADC0A492B7BB368006C2134 /* ContentView.swift */,
 				EC0848502B82286C00850D7F /* NewGoalView.swift */,
 				EC93BA722B8528770049C783 /* AddSavingView.swift */,
+				EC93BA762B8536450049C783 /* GoalDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -92,7 +95,7 @@
 		6AF8295B2B826EC90006F5F7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6AF829592B826E9C0006F5F7 /* Purchase.swift */,
+				6AF829592B826E9C0006F5F7 /* Goal.swift */,
 				EC93BA742B85299A0049C783 /* Saving.swift */,
 			);
 			path = Models;
@@ -176,7 +179,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AF8295A2B826E9C0006F5F7 /* Purchase.swift in Sources */,
+				EC93BA772B8536450049C783 /* GoalDetailView.swift in Sources */,
+				6AF8295A2B826E9C0006F5F7 /* Goal.swift in Sources */,
 				6ADC0A4A2B7BB368006C2134 /* ContentView.swift in Sources */,
 				EC93BA732B8528770049C783 /* AddSavingView.swift in Sources */,
 				EC0848512B82286C00850D7F /* NewGoalView.swift in Sources */,

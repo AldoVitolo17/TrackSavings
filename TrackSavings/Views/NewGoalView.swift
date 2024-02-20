@@ -11,7 +11,7 @@ struct NewGoalView: View {
     @Binding var isPresented: Bool
     @Environment(\.modelContext) private var modelContext
     @Environment (\.dismiss) private var dismiss
-    @Query private var purchases: [Purchase]
+    @Query private var goals: [Goal]
     @State private var item: String = ""
     @State private var image: String = ""
     @State private var costText: String = ""
@@ -122,8 +122,7 @@ struct NewGoalView: View {
                     Button("Add") {
                         if !item.isEmpty && !costText.isEmpty {
                             withAnimation{
-                                savePurchase()
-                                dismiss()
+                                saveGoal()
                             }
                         }
                     }.disabled(item.isEmpty && costText.isEmpty)
@@ -141,10 +140,20 @@ struct NewGoalView: View {
     
     
     //MARK: - private mehods
-    private func savePurchase() {
-        let newPurchase = Purchase(item: item, image: image, cost: cost, savings: savings, date: date)
-        modelContext.insert(newPurchase)
-        try? modelContext.save()
+    private func saveGoal() {
+        let existingGoal = goals.first { $0.item == item }
+        
+        if let existingGoal = existingGoal {
+            // Prompt the user that the goal name is already used
+            // You can show an alert or handle this situation as per your UI/UX design
+            print("A goal with the same name already exists. Please choose a different name.")
+        } else {
+            // Save the goal if the item name is unique
+            let newGoal = Goal(item: item, image: image, cost: cost, savings: savings, date: date)
+            modelContext.insert(newGoal)
+            try? modelContext.save()
+            dismiss()
+        }
     }
 }
 

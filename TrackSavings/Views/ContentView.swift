@@ -11,7 +11,7 @@ struct ContentView: View {
     @State var totalAmountSaved: Double
     @State private var newGoalModal = false
     @State private var addSavingModal = false
-    @Query private var purchases: [Purchase]
+    @Query private var goals: [Goal]
     
     var body: some View {
         NavigationStack {
@@ -43,14 +43,16 @@ struct ContentView: View {
                             }
 
                         }
-                        List(purchases) { purchase in
-                            HStack {
-                                Text(purchase.item) //This will be changed for the progress circle
-                                Text("$\(purchase.cost, specifier: "%.2f")")
+                        List(goals) { goal in
+                            NavigationLink(destination: GoalDetailView(goal: goal)) {
+                                HStack {
+                                    Text(goal.item) //This will be changed for the progress circle
+                                    Text("$\(goal.cost, specifier: "%.2f")")
+                                }
+                                .foregroundStyle(Color("TextPrimaryColor"))
+                                .listRowBackground(Color.clear)
+                                .listRowSeparatorTint(Color("TextPrimaryColor"))
                             }
-                            .foregroundStyle(Color("TextPrimaryColor"))
-                            .listRowBackground(Color.clear)
-                            .listRowSeparatorTint(Color("TextPrimaryColor"))
                         }
                         .listStyle(.plain)
                         .background(Color.clear)
