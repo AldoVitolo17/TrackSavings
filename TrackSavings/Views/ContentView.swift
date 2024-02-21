@@ -19,8 +19,14 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack{
+                Color("BackgroundColor").zIndex(-1.0)
                 Color("PrimaryColor")
-                    .ignoresSafeArea(edges: .all)
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                    .ignoresSafeArea(.all)
+                    
+                    .frame(width: .infinity, height: 130)
+                    .position(CGPoint(x: 195.67, y: 43.0))
+    
                 VStack {
                     VStack{
                         Text("Total **saved:**")
@@ -29,6 +35,7 @@ struct ContentView: View {
                     .font(.title)
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
+                   
                     
                     VStack{
                         HStack{
@@ -41,7 +48,7 @@ struct ContentView: View {
                                 Image(systemName: "plus")
                                     .foregroundStyle(Color("TextPrimaryColor"))
                             }
-                            .sheet(isPresented: $newGoalModal) {
+                            .fullScreenCover(isPresented: $newGoalModal) {
                                 NewGoalView(isPresented: $newGoalModal)
                             }
 
@@ -71,7 +78,7 @@ struct ContentView: View {
                                 .foregroundStyle(Color("TextPrimaryColor"))
                                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         }
-                        .sheet(isPresented: $addSavingModal) {
+                        .fullScreenCover(isPresented: $addSavingModal) {
                             AddSavingView(isPresented: $addSavingModal)
                         }
                         .shadow(color: .gray, radius: 2, x: 0.0, y: 2)
@@ -79,7 +86,7 @@ struct ContentView: View {
                     .padding()
                     .padding([.bottom,.horizontal], 20)
                     .background(Color("BackgroundColor"))
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                    
                 }
                 .ignoresSafeArea(edges: .bottom)
             }
