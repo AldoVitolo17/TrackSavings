@@ -16,7 +16,10 @@ struct NewGoalView: View {
     @State private var image: String = ""
     @State private var costText: String = ""
     @State private var cost: Double = Double()
-    @State private var savings: [Saving] = []
+    @Query private var savings: [Saving]
+    private var totalAmount: Double {
+        return savings.reduce(0) { $0 + $1.amount }
+    }
     @State private var date: Date = Date()
     @State private var notificationType: Int = 0
     @FocusState private var keyboardFocused: Bool
@@ -149,7 +152,7 @@ struct NewGoalView: View {
             print("A goal with the same name already exists. Please choose a different name.")
         } else {
             // Save the goal if the item name is unique
-            let newGoal = Goal(item: item, image: image, cost: cost, savings: savings, date: date)
+            let newGoal = Goal(item: item, image: image, cost: cost, date: date)
             modelContext.insert(newGoal)
             try? modelContext.save()
             dismiss()

@@ -15,15 +15,13 @@ final class Goal: Identifiable {
     var item: String
     var image: String
     var cost: Double
-    var savings: [Saving]
     var date: Date
     
-    init(item: String, image: String, cost: Double, savings: [Saving], date: Date) {
+    init(item: String, image: String, cost: Double, date: Date) {
         self.id = item // Assigning item name as ID
         self.item = item
         self.image = image
         self.cost = cost
-        self.savings = savings
         self.date = date
     }
 }

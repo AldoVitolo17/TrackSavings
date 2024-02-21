@@ -15,9 +15,11 @@ final class Saving: Identifiable{
     var id = UUID().uuidString
     var amount: Double
     var date: Date
+    var goal: String
 
-    init(id: String = UUID().uuidString,amount: Double, date: Date){
+    init(id: String = UUID().uuidString,amount: Double, date: Date, goal: String){
         self.amount = amount
         self.date = date
+        self.goal = goal
     }
 }

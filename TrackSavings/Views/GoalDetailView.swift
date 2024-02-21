@@ -43,5 +43,5 @@ struct GoalDetailView: View {
 }
 
 #Preview {
-    GoalDetailView(goal: Goal(item: "New Car", image: "car", cost: 20000, savings: [], date: Date()))
+    GoalDetailView(goal: Goal(item: "New Car", image: "car", cost: 20000, date: Date()))
 }

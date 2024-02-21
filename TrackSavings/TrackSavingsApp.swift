@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct TrackSavingsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(totalAmountSaved: 0)
-                .modelContainer(for: Goal.self)
+            ContentView()
+                .modelContainer(for: [Goal.self,Saving.self])
         }
     
     }

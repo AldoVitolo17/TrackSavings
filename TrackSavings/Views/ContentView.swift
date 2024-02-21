@@ -8,11 +8,14 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @State var totalAmountSaved: Double
     @State private var newGoalModal = false
     @State private var addSavingModal = false
     @Query private var goals: [Goal]
-    
+    @Query private var savings: [Saving]
+    private var totalAmount: Double {
+        return savings.reduce(0) { $0 + $1.amount }
+    }
+
     var body: some View {
         NavigationStack {
             ZStack{
@@ -21,7 +24,7 @@ struct ContentView: View {
                 VStack {
                     VStack{
                         Text("Total **saved:**")
-                        Text("$\(totalAmountSaved, specifier: "%.2f")")
+                        Text("$\(totalAmount, specifier: "%.2f")")
                     }
                     .font(.title)
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -46,13 +49,16 @@ struct ContentView: View {
                         List(goals) { goal in
                             NavigationLink(destination: GoalDetailView(goal: goal)) {
                                 HStack {
-                                    Text(goal.item) //This will be changed for the progress circle
+                                    CircularProgressView(progress: 0.2, image: "car")
+
+                                    Text(goal.item)
+                                    Spacer()
                                     Text("$\(goal.cost, specifier: "%.2f")")
                                 }
-                                .foregroundStyle(Color("TextPrimaryColor"))
-                                .listRowBackground(Color.clear)
-                                .listRowSeparatorTint(Color("TextPrimaryColor"))
                             }
+                            .foregroundStyle(Color("TextPrimaryColor"))
+                            .listRowBackground(Color.clear)
+                            .listRowSeparatorTint(Color("TextPrimaryColor"))
                         }
                         .listStyle(.plain)
                         .background(Color.clear)
@@ -82,5 +88,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(totalAmountSaved: 0)
+    ContentView()
 }

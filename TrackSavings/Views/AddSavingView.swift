@@ -44,7 +44,7 @@ struct AddSavingView: View {
 
                 List{
                     HStack{
-                        Image(systemName: "target")
+                        Image(systemName: "list.bullet")
                         Text("Goal")
                         Spacer()
                         Picker("", selection: $selectedGoal) {
@@ -106,7 +106,7 @@ struct AddSavingView: View {
     
     //MARK: - private mehods
     private func saveSaving() {
-        let newSaving = Saving(amount: amount, date: date)
+        let newSaving = Saving(amount: amount, date: date, goal: selectedGoal)
         modelContext.insert(newSaving)
         try? modelContext.save()
     }
