@@ -77,16 +77,6 @@ struct ContentView: View {
                 }
                 .ignoresSafeArea(edges: .bottom)
             }
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    Button {
-                        print("Configuration button was tapped")
-                    } label: {
-                        Image(systemName: "gear")
-                            .foregroundStyle(Color("TextPrimaryColor"))
-                    }
-                }
-            }
         }
     }
 }
