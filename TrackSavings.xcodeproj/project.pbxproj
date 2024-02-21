@@ -17,6 +17,7 @@
 		EC93BA732B8528770049C783 /* AddSavingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA722B8528770049C783 /* AddSavingView.swift */; };
 		EC93BA752B85299A0049C783 /* Saving.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA742B85299A0049C783 /* Saving.swift */; };
 		EC93BA772B8536450049C783 /* GoalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA762B8536450049C783 /* GoalDetailView.swift */; };
+		EC93BA792B8542770049C783 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC93BA782B8542770049C783 /* CircularProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		EC93BA722B8528770049C783 /* AddSavingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingView.swift; sourceTree = "<group>"; };
 		EC93BA742B85299A0049C783 /* Saving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saving.swift; sourceTree = "<group>"; };
 		EC93BA762B8536450049C783 /* GoalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailView.swift; sourceTree = "<group>"; };
+		EC93BA782B8542770049C783 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				EC0848502B82286C00850D7F /* NewGoalView.swift */,
 				EC93BA722B8528770049C783 /* AddSavingView.swift */,
 				EC93BA762B8536450049C783 /* GoalDetailView.swift */,
+				EC93BA782B8542770049C783 /* CircularProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC93BA772B8536450049C783 /* GoalDetailView.swift in Sources */,
+				EC93BA792B8542770049C783 /* CircularProgressView.swift in Sources */,
 				6AF8295A2B826E9C0006F5F7 /* Goal.swift in Sources */,
 				6ADC0A4A2B7BB368006C2134 /* ContentView.swift in Sources */,
 				EC93BA732B8528770049C783 /* AddSavingView.swift in Sources */,
