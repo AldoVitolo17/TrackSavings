@@ -19,6 +19,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack{
+                Color("BackgroundColor").zIndex(-1.0)
                 Color("PrimaryColor")
                     .clipShape(RoundedRectangle(cornerRadius: 25.0))
                     .ignoresSafeArea(.all)
