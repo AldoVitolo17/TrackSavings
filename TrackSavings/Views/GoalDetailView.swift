@@ -38,71 +38,70 @@ struct GoalDetailView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                // Custom CircularProgressView with the progress and goal image
-                CircularProgressView(progress: progress, image: goal.image)
-                    .frame(width: 100, height: 100) // Adjust size as needed
-                
-                // General Section with goal details
-                VStack(alignment: .leading) {
-                    Text("General").font(.headline)
-                    HStack {
-                        Text("Total cost")
-                        Spacer()
-                        Text("\(goal.cost, specifier: "%.2f")k")
+            ZStack { //Fix the UI
+                VStack(spacing: 20) {
+                    // Custom CircularProgressView with the progress and goal image
+                    CircularProgressView(progress: progress, image: goal.image)
+                        .frame(width: 150, height: 150) // Adjust size as needed
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("General").font(.headline).padding(.leading)
+                        Divider()
+                        DetailRow(label: "Total cost", value: String(format: "%.2fk", goal.cost))
+                        Divider()
+                        DetailRow(label: "Total saved", value: String(format: "%.2fk", savingsEntries.reduce(0) { $0 + $1.amount }))
+                        Divider()
                     }
-                    HStack {
-                        Text("Total saved")
-                        Spacer()
-                        Text("\(savingsEntries.reduce(0) { $0 + $1.amount }, specifier: "%.2f")k")
-                    }
-                }
-                .padding()
-                
-                // New Saving Button
-                Button(action: {
-                    // Action to add new saving
-                }) {
-                    HStack {
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.green)
-                        Text("New saving")
-                    }
-                }
-                .padding()
-                
-                // List of Savings
-                List {
-                    ForEach(savingsEntries) { saving in
+
+                    .padding([.top, .horizontal])
+                    
+                    // New Saving Button
+                    Button(action: {
+                        // Action to add new saving
+                    }) {
                         HStack {
-                            Text("Saved amount: \(saving.amount, specifier: "%.2f")")
-                            Spacer()
-                            Text("Date: \(saving.date, formatter: itemFormatter)")
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.green)
+                            Text("New saving")
                         }
                     }
-                    .onDelete(perform: deleteSaving)
+                    .padding()
+                    
+                    Spacer() // Pushes the delete button to the bottom
+                    
+                    // List of Savings
+                    List {
+                        ForEach(savingsEntries) { saving in
+                            HStack {
+                                Text("Saved amount: \(saving.amount, specifier: "%.2f")")
+                                Spacer()
+                                Text("Date: \(saving.date, formatter: itemFormatter)")
+                            }
+                        }
+                        .onDelete(perform: deleteSaving)
+                    }
+                    
+                    // Delete Goal Button
+                    Button(action: {
+                        deleteItem(goal: goal)
+                        dismiss()
+                    }) {
+                        Text("Delete Goal")
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.red)
+                            .cornerRadius(10)
+                    }
+                    .padding([.bottom, .horizontal])
                 }
-                
-                // Delete Goal Button
-                Button(action: {
-                    deleteItem(goal: goal)
-                    dismiss()
-                }) {
-                    Text("Delete Goal")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.red)
-                        .cornerRadius(10)
-                }
-                .padding()
-            }
-            .navigationTitle(goal.item)
-            .navigationBarItems(
-                leading: Button("Cancel") { dismiss() },
+                .navigationTitle(goal.item)
+                .navigationBarItems(
+                    leading: Button("Cancel") { dismiss() },
                 trailing: Button("Done", action: saveGoal))
-            .padding()
+            }
         }
+        .padding(.bottom) // If necessary, to avoid clipping on some devices
     }
     
     private func saveGoal() {
@@ -110,7 +109,7 @@ struct GoalDetailView: View {
     }
     
     private func deleteItem(goal: Goal) {
-//        modelContext.delete(goal)
+        modelContext.delete(goal)
     }
     
     private func deleteSaving(offsets: IndexSet) {
@@ -129,6 +128,26 @@ private let itemFormatter: DateFormatter = {
 }()
 
 
+// A helper view to create a consistent layout for detail rows
+struct DetailRow: View {
+    var label: String
+    var value: String
+
+    var body: some View {
+        HStack {
+            Text(label).padding(.leading)
+            Spacer()
+            Text(value)
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+
+
 #Preview {
     GoalDetailView(goal: Goal(item: "New Car", image: "car", cost: 20000, date: Date()))
 }
+
+
+
