@@ -25,7 +25,7 @@ struct ContentView: View {
                     .ignoresSafeArea(.all)
                     
                     .frame(width: .infinity, height: 130)
-                    .position(CGPoint(x: 195.7, y: 43.0))
+                    .position(CGPoint(x: 195.67, y: 43.0))
     
                 VStack {
                     VStack{
