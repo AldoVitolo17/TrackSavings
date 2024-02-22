@@ -20,23 +20,23 @@ struct ContentView: View {
         NavigationStack {
             ZStack{
                 Color("BackgroundColor").zIndex(-1.0)
-                Color("PrimaryColor")
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
-                    .ignoresSafeArea(.all)
-                    
-                    .frame(width: .infinity, height: 130)
-                    .position(CGPoint(x: 195.67, y: 43.0))
-    
                 VStack {
-                    VStack{
-                        Text("Total **saved:**")
-                        Text("$\(totalAmount, specifier: "%.2f")")
+                    ZStack{
+                        Color("PrimaryColor")
+                            .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                            .ignoresSafeArea(.all)
+                            .frame(width: .infinity, height: 200)
+                            .zIndex(-1.0)
+
+                        VStack{
+                            Text("Total saved:")
+                                .bold()
+                            Text("$\(totalAmount, specifier: "%.2f")")
+                        }
+                        .font(.title)
+                        .foregroundStyle(Color("TextPrimaryColor"))
+                        .padding()
                     }
-                    .font(.title)
-                    .foregroundStyle(Color("TextPrimaryColor"))
-                    .padding()
-                   
-                    
                     VStack{
                         HStack{
                             Text("My Goals")
