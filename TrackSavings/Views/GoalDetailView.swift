@@ -46,12 +46,15 @@ struct GoalDetailView: View {
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text("General")
+                            .fontDesign(.rounded)
                             .font(.caption)
                             .foregroundStyle(Color.secondary)
                             .padding(.leading)
                         DetailRow(label: "Total cost", value: String(format: "£%.2f", goal.cost))
+                            .fontDesign(.rounded)
                         Divider()
                         DetailRow(label: "Total saved", value: String(format: "£%.2f", savingsEntries.reduce(0) { $0 + $1.amount }))
+                            .fontDesign(.rounded)
                         Divider()
                     }
 
@@ -64,7 +67,8 @@ struct GoalDetailView: View {
                         HStack {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(.green)
-                            Text("New saving").fontDesign(.rounded)
+                            Text("New saving")
+                                .fontDesign(.rounded)
                         }
                     }
                     .padding([.horizontal, .top])
@@ -95,17 +99,12 @@ struct GoalDetailView: View {
                     Button("Delete Goal", role: .destructive){
                         deleteItem(goal: goal)
                         dismiss()
-                    }) {
-                        Text("Delete Goal").fontDesign(.rounded)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.red)
-                            .cornerRadius(10)
                     }
+                    .fontDesign(.rounded)
                     .padding([.bottom, .horizontal])
                 }
                 .navigationTitle(goal.item)
+                .fontDesign(.rounded)
                 .toolbarColorScheme(.light, for: .navigationBar)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)

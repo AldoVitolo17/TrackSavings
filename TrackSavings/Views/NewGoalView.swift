@@ -29,23 +29,25 @@ struct NewGoalView: View {
         var id: Self {self}
     }
     
-    @State private var selectedReminder: Reminder = .daily
+    @State private var selectedReminder: Reminder = .morning
     enum Reminder: String, CaseIterable, Identifiable{
-        case daily, weekly, monthly
+        case morning, afternoon, night
         var id: Self {self}
     }
     
     var body: some View {
         NavigationView {
             VStack{
-                TextField("", text: $costText, prompt: Text("Goal Amount").fontDesign(.rounded).foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                TextField("", text: $costText, prompt: Text("Goal Amount")
+                    .font(.title)
+                    .foregroundColor(Color("TextSecondaryColor")
+                    .opacity(0.36))) // Bind to the String
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(width: 300, height: 200, alignment: .center)
                     .multilineTextAlignment(.center)
-                    .font(.title)
                     .focused($keyboardFocused)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -60,7 +62,9 @@ struct NewGoalView: View {
                 List{
                     HStack{
                         Image(systemName: "target")
-                        TextField("", text: $item, prompt: Text("Goal Name").fontDesign(.rounded).foregroundColor(Color("TextSecondaryColor").opacity(0.36)))
+                        TextField("", text: $item, prompt: Text("Goal Name")
+                            .foregroundColor(Color("TextSecondaryColor")
+                            .opacity(0.36)))
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
@@ -78,12 +82,12 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "bell.fill")
-                        Text("Reminder").fontDesign(.rounded)
+                        Text("Reminder")
                         Spacer()
                         Picker("", selection: $selectedReminder) {
-                            Text("Daily").fontDesign(.rounded).tag(Reminder.daily)
-                            Text("Weekly").fontDesign(.rounded).tag(Reminder.weekly)
-                            Text("Monthly").fontDesign(.rounded).tag(Reminder.monthly)
+                            Text("Mornings").tag(Reminder.morning)
+                            Text("Afternoons").tag(Reminder.afternoon)
+                            Text("Nights").tag(Reminder.night)
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -92,13 +96,13 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "tag.fill")
-                        Text("Tag").fontDesign(.rounded)
+                        Text("Tag")
                         Spacer()
                         
                         Picker("", selection: $selectedItem){
-                            Image(systemName: "car").tag(NewGoalView.Item.car).fontDesign(.rounded)
-                            Image(systemName: "phone").tag(NewGoalView.Item.phone).fontDesign(.rounded)
-                            Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller).fontDesign(.rounded)
+                            Image(systemName: "car").tag(NewGoalView.Item.car)
+                            Image(systemName: "phone").tag(NewGoalView.Item.phone)
+                            Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller)
                         }
                         
                     }
@@ -116,8 +120,7 @@ struct NewGoalView: View {
                         dismiss()
                     }, label: {
                         HStack{
-                            
-                            Text("Cancel").fontDesign(.rounded)
+                            Text("Cancel")
                         }
                     })
                 }
@@ -128,7 +131,7 @@ struct NewGoalView: View {
                                 saveGoal()
                             }
                         }
-                    }.disabled(item.isEmpty && costText.isEmpty).fontDesign(.rounded)
+                    }.disabled(item.isEmpty && costText.isEmpty)
                 }
 
             }
