@@ -9,7 +9,7 @@ import SwiftData
 
 struct GoalDetailView: View {
     let goal: Goal
-    
+    @State private var addSavingModal = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
@@ -59,14 +59,14 @@ struct GoalDetailView: View {
                     .padding([.top, .horizontal])
                     
                     // New Saving Button
-                    Button(action: {
-                        // Action to add new saving
-                    }) {
+                    Button(action: { addSavingModal.toggle() }) {
                         HStack {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(.green)
                             Text("New saving")
                         }
+                    }                        .fullScreenCover(isPresented: $addSavingModal) {
+                        AddSavingView(isPresented: $addSavingModal)
                     }
                     .padding([.horizontal, .top])
                     
