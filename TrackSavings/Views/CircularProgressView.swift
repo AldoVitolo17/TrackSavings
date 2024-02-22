@@ -11,8 +11,8 @@ import SwiftData
 struct CircularProgressView: View {
     @State var progress: Double
     @State var image: String
-    let ringDiameter = 50.0
-    let width = 8.0
+    let ringDiameter = 150.0
+    let width = 15.0
     
     private var rotationAngle: Angle {
         return Angle(degrees: (360.0 * progress))

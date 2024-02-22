@@ -11,25 +11,25 @@ import SwiftUI
 
 let previewContainer: ModelContainer = {
     do {
-        let schema = Schema([
+        let schema1 = Schema([
             Goal.self,
             Saving.self
         ])
         
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let modelConfiguration = ModelConfiguration(schema: schema1, isStoredInMemoryOnly: true)
         
-        let container = try ModelContainer(for: schema)
+        let container = try ModelContainer(for: schema1)
         
         Task{ @MainActor in
             let context = container.mainContext
             
             let goal = Goal.exampleGoal()
-            context.insert(goal)
-            
+//            context.insert(goal)
+//            
             let savings = Saving.exampleSaving()
-            context.insert(savings[0])
-            context.insert(savings[1])
-            context.insert(savings[2])
+//            context.insert(savings[0])
+//            context.insert(savings[1])
+//            context.insert(savings[2])
         }
         return container
     } catch {

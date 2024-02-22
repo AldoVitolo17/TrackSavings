@@ -26,7 +26,7 @@ final class Goal: Identifiable {
     }
     
     static func exampleGoal() -> Goal {
-        let goal = Goal(item: "dyson", image: "car", cost: 50.00, date: Date.now)
+        let goal = Goal(item: "dyson", image: "car", cost: 533.00, date: Date.now)
         return goal
     }
 }

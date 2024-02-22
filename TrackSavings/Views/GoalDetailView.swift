@@ -42,14 +42,16 @@ struct GoalDetailView: View {
                 VStack(spacing: 20) {
                     // Custom CircularProgressView with the progress and goal image
                     CircularProgressView(progress: progress, image: goal.image)
-                        .frame(width: 150, height: 150) // Adjust size as needed
+                        .frame(width: 150, height: 250) // Adjust size as needed
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("General").fontDesign(.rounded).font(.headline).padding(.leading)
+                        Text("General")
+                            .font(.caption)
+                            .foregroundStyle(Color.secondary)
+                            .padding(.leading)
+                        DetailRow(label: "Total cost", value: String(format: "£%.2f", goal.cost))
                         Divider()
-                        DetailRow(label: "Total cost", value: String(format: "%.2fk", goal.cost)).fontDesign(.rounded)
-                        Divider()
-                        DetailRow(label: "Total saved", value: String(format: "%.2fk", savingsEntries.reduce(0) { $0 + $1.amount })).fontDesign(.rounded)
+                        DetailRow(label: "Total saved", value: String(format: "£%.2f", savingsEntries.reduce(0) { $0 + $1.amount }))
                         Divider()
                     }
 
@@ -65,24 +67,32 @@ struct GoalDetailView: View {
                             Text("New saving").fontDesign(.rounded)
                         }
                     }
-                    .padding()
+                    .padding([.horizontal, .top])
                     
-                    Spacer() // Pushes the delete button to the bottom
                     
-                    // List of Savings
-                    List {
-                        ForEach(savingsEntries) { saving in
-                            HStack {
-                                Text("Saved amount: \(saving.amount, specifier: "%.2f")")
-                                Spacer()
-                                Text("Date: \(saving.date, formatter: itemFormatter)")
+                    
+                    ForEach(savingsEntries) { saving in
+                        HStack(alignment: .center){
+                            Image(systemName: "dollarsign.circle.fill")
+                                .foregroundStyle(Color("PrimaryColor"))
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            
+                            VStack(alignment: .leading){
+                                Text("\(saving.date, formatter: dateFormatter)")
+                                
+                                Text("\(saving.date, formatter: timeFormatter)")
+                                    .foregroundStyle(Color.secondary)
                             }
+                            
+                            Spacer()
+                            Text("£\(saving.amount, specifier: "%.2f")")
                         }
-                        .onDelete(perform: deleteSaving)
+                        .padding(.horizontal)
                     }
+                    .onDelete(perform: deleteSaving)
                     
                     // Delete Goal Button
-                    Button(action: {
+                    Button("Delete Goal", role: .destructive){
                         deleteItem(goal: goal)
                         dismiss()
                     }) {
@@ -96,6 +106,11 @@ struct GoalDetailView: View {
                     .padding([.bottom, .horizontal])
                 }
                 .navigationTitle(goal.item)
+                .toolbarColorScheme(.light, for: .navigationBar)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .background(Color("BackgroundColor"))
                 .navigationBarItems(
                     leading: Button("Cancel") { dismiss() }.fontDesign(.rounded),
                 trailing: Button("Done", action: saveGoal).fontDesign(.rounded))
@@ -120,9 +135,16 @@ struct GoalDetailView: View {
     }
 }
 
-private let itemFormatter: DateFormatter = {
+private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
+    formatter.timeStyle = .none
+    return formatter
+}()
+
+private let timeFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .none
     formatter.timeStyle = .short
     return formatter
 }()
@@ -146,10 +168,8 @@ struct DetailRow: View {
 
 
 #Preview {
-    //    GoalDetailView(goal: Goal(item: "New Car", image: "car", cost: 20000, date: Date()))
     ModelPreview{ goal in
         GoalDetailView(goal: goal)
-        
     }
 }
 
