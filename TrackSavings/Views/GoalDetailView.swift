@@ -45,11 +45,11 @@ struct GoalDetailView: View {
                         .frame(width: 150, height: 150) // Adjust size as needed
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("General").font(.headline).padding(.leading)
+                        Text("General").fontDesign(.rounded).font(.headline).padding(.leading)
                         Divider()
-                        DetailRow(label: "Total cost", value: String(format: "%.2fk", goal.cost))
+                        DetailRow(label: "Total cost", value: String(format: "%.2fk", goal.cost)).fontDesign(.rounded)
                         Divider()
-                        DetailRow(label: "Total saved", value: String(format: "%.2fk", savingsEntries.reduce(0) { $0 + $1.amount }))
+                        DetailRow(label: "Total saved", value: String(format: "%.2fk", savingsEntries.reduce(0) { $0 + $1.amount })).fontDesign(.rounded)
                         Divider()
                     }
 
@@ -62,7 +62,7 @@ struct GoalDetailView: View {
                         HStack {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(.green)
-                            Text("New saving")
+                            Text("New saving").fontDesign(.rounded)
                         }
                     }
                     .padding()
@@ -86,7 +86,7 @@ struct GoalDetailView: View {
                         deleteItem(goal: goal)
                         dismiss()
                     }) {
-                        Text("Delete Goal")
+                        Text("Delete Goal").fontDesign(.rounded)
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
@@ -97,8 +97,8 @@ struct GoalDetailView: View {
                 }
                 .navigationTitle(goal.item)
                 .navigationBarItems(
-                    leading: Button("Cancel") { dismiss() },
-                trailing: Button("Done", action: saveGoal))
+                    leading: Button("Cancel") { dismiss() }.fontDesign(.rounded),
+                trailing: Button("Done", action: saveGoal).fontDesign(.rounded))
             }
         }
         .padding(.bottom) // If necessary, to avoid clipping on some devices

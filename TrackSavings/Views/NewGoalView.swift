@@ -38,7 +38,7 @@ struct NewGoalView: View {
     var body: some View {
         NavigationView {
             VStack{
-                TextField("", text: $costText, prompt: Text("Goal Amount").foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                TextField("", text: $costText, prompt: Text("Goal Amount").fontDesign(.rounded).foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
@@ -60,7 +60,7 @@ struct NewGoalView: View {
                 List{
                     HStack{
                         Image(systemName: "target")
-                        TextField("", text: $item, prompt: Text("Goal Name").foregroundColor(Color("TextSecondaryColor").opacity(0.36)))
+                        TextField("", text: $item, prompt: Text("Goal Name").fontDesign(.rounded).foregroundColor(Color("TextSecondaryColor").opacity(0.36)))
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
@@ -69,7 +69,7 @@ struct NewGoalView: View {
                     DatePicker(selection: $date, in: Date.now..., displayedComponents: .date) {
                         HStack{
                             Image(systemName: "calendar")
-                            Text("Calendar")
+                            Text("Calendar").fontDesign(.rounded)
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -78,12 +78,12 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "bell.fill")
-                        Text("Reminder")
+                        Text("Reminder").fontDesign(.rounded)
                         Spacer()
                         Picker("", selection: $selectedReminder) {
-                            Text("Daily").tag(Reminder.daily)
-                            Text("Weekly").tag(Reminder.weekly)
-                            Text("Monthly").tag(Reminder.monthly)
+                            Text("Daily").fontDesign(.rounded).tag(Reminder.daily)
+                            Text("Weekly").fontDesign(.rounded).tag(Reminder.weekly)
+                            Text("Monthly").fontDesign(.rounded).tag(Reminder.monthly)
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -92,13 +92,13 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "tag.fill")
-                        Text("Tag")
+                        Text("Tag").fontDesign(.rounded)
                         Spacer()
                         
                         Picker("", selection: $selectedItem){
-                            Image(systemName: "car").tag(NewGoalView.Item.car)
-                            Image(systemName: "phone").tag(NewGoalView.Item.phone)
-                            Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller)
+                            Image(systemName: "car").tag(NewGoalView.Item.car).fontDesign(.rounded)
+                            Image(systemName: "phone").tag(NewGoalView.Item.phone).fontDesign(.rounded)
+                            Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller).fontDesign(.rounded)
                         }
                         
                     }
@@ -117,7 +117,7 @@ struct NewGoalView: View {
                     }, label: {
                         HStack{
                             
-                            Text("Cancel")
+                            Text("Cancel").fontDesign(.rounded)
                         }
                     })
                 }
@@ -128,10 +128,11 @@ struct NewGoalView: View {
                                 saveGoal()
                             }
                         }
-                    }.disabled(item.isEmpty && costText.isEmpty)
+                    }.disabled(item.isEmpty && costText.isEmpty).fontDesign(.rounded)
                 }
 
             }
+            .fontDesign(.rounded)
             .toolbarColorScheme(.light, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)

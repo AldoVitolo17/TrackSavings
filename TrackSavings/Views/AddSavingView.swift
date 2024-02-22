@@ -23,7 +23,7 @@ struct AddSavingView: View {
     var body: some View {
         NavigationView {
             VStack{
-                TextField("", text: $amountText, prompt: Text("Saved Amount").foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                TextField("", text: $amountText, prompt: Text("Saved Amount").fontDesign(.rounded).foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
@@ -45,12 +45,12 @@ struct AddSavingView: View {
                 List{
                     HStack{
                         Image(systemName: "list.bullet")
-                        Text("Goal")
+                        Text("Goal").fontDesign(.rounded)
                         Spacer()
                         Picker("", selection: $selectedGoal) {
                             ForEach(goals, id: \.id){ goal in
                                 Text(goal.item)
-                            }
+                            }.fontDesign(.rounded)
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -60,7 +60,7 @@ struct AddSavingView: View {
                     DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
                         HStack{
                             Image(systemName: "calendar")
-                            Text("Calendar")
+                            Text("Calendar").fontDesign(.rounded)
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -68,10 +68,11 @@ struct AddSavingView: View {
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
                     
                 }
+                .fontDesign(.rounded)
                 .listStyle(.plain)
                 .background(Color.clear)
             }
-            .navigationTitle("Add Saving")
+            .navigationTitle("Add Saving").fontDesign(.rounded)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
@@ -91,10 +92,11 @@ struct AddSavingView: View {
                                 dismiss()
                             }
                         }
-                    }.disabled(amountText.isEmpty)
+                    }.disabled(amountText.isEmpty).fontDesign(.rounded)
                 }
 
             }
+            .fontDesign(.rounded)
             .toolbarColorScheme(.light, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)
