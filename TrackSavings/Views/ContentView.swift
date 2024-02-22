@@ -56,7 +56,7 @@ struct ContentView: View {
                         List(goals) { goal in
                             NavigationLink(destination: GoalDetailView(goal: goal)) {
                                 HStack {
-                                    CircularProgressView(progress: 0.2, image: "car")
+                                    Image(systemName: goal.image)
 
                                     Text(goal.item)
                                     Spacer()
@@ -97,4 +97,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(previewContainer)
 }

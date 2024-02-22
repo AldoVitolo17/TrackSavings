@@ -51,10 +51,8 @@ struct GoalDetailView: View {
                             .foregroundStyle(Color.secondary)
                             .padding(.leading)
                         DetailRow(label: "Total cost", value: String(format: "£%.2f", goal.cost))
-                            .fontDesign(.rounded)
                         Divider()
                         DetailRow(label: "Total saved", value: String(format: "£%.2f", savingsEntries.reduce(0) { $0 + $1.amount }))
-                            .fontDesign(.rounded)
                         Divider()
                     }
 
@@ -68,7 +66,6 @@ struct GoalDetailView: View {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(.green)
                             Text("New saving")
-                                .fontDesign(.rounded)
                         }
                     }
                     .padding([.horizontal, .top])
@@ -100,25 +97,25 @@ struct GoalDetailView: View {
                         deleteItem(goal: goal)
                         dismiss()
                     }
-                    .fontDesign(.rounded)
                     .padding([.bottom, .horizontal])
                 }
                 .navigationTitle(goal.item)
-                .fontDesign(.rounded)
-                .toolbarColorScheme(.light, for: .navigationBar)
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbarColorScheme(.light, for: .navigationBar)
                 .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .background(Color("BackgroundColor"))
                 .navigationBarItems(
-                    leading: Button("Cancel") { dismiss() }.fontDesign(.rounded),
-                trailing: Button("Done", action: saveGoal).fontDesign(.rounded))
+                    leading: Button("Cancel") { dismiss() },
+                    trailing: Button("Done", action: saveChanges))
             }
         }
+        .navigationBarBackButtonHidden(true)
         .padding(.bottom) // If necessary, to avoid clipping on some devices
+        .fontDesign(.rounded)
     }
     
-    private func saveGoal() {
+    private func saveChanges() {
         // Implement save functionality
     }
     
