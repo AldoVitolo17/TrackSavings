@@ -7,16 +7,29 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 let previewContainer: ModelContainer = {
     do {
-        let container = try ModelContainer(for: Goal.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let schema = Schema([
+            Goal.self,
+            Saving.self
+        ])
+        
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        
+        let container = try ModelContainer(for: schema)
         
         Task{ @MainActor in
             let context = container.mainContext
             
-            let goal = Goal.example()
+            let goal = Goal.exampleGoal()
             context.insert(goal)
+            
+            let savings = Saving.exampleSaving()
+            context.insert(savings[0])
+            context.insert(savings[1])
+            context.insert(savings[2])
         }
         return container
     } catch {

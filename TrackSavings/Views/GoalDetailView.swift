@@ -146,7 +146,11 @@ struct DetailRow: View {
 
 
 #Preview {
-    GoalDetailView(goal: Goal(item: "New Car", image: "car", cost: 20000, date: Date()))
+    //    GoalDetailView(goal: Goal(item: "New Car", image: "car", cost: 20000, date: Date()))
+    ModelPreview{ goal in
+        GoalDetailView(goal: goal)
+        
+    }
 }
 
 

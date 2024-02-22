@@ -22,4 +22,9 @@ final class Saving: Identifiable{
         self.date = date
         self.goal = goal
     }
+    
+    static func exampleSaving() -> [Saving] {
+        let saving: [Saving] = [Saving(amount: 4.00, date: Date.now, goal: "dyson"), Saving(amount: 9.50, date: Date.now, goal: "dyson"), Saving(amount: 32.00, date: Date.now, goal: "dyson")]
+        return saving
+    }
 }
