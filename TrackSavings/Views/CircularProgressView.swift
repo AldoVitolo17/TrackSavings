@@ -21,17 +21,17 @@ struct CircularProgressView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color(hue: 0.0, saturation: 0.0, brightness: 0.9), lineWidth: width)
+                .stroke(Color(hue: 0.0, saturation: 0.0, brightness: 0.0), lineWidth: 10)
                 .overlay() {
                     Image(systemName: "\(image)")
                         .font(.system(size: ringDiameter/3, weight: .bold, design:.rounded))
                 }
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(Color("PrimaryColor"),
-                        style: StrokeStyle(lineWidth: width, lineCap: .round)
-                )
-                .rotationEffect(Angle(degrees: -90))
+//            Circle()
+//                .trim(from: 0, to: progress)
+//                .stroke(Color("PrimaryColor"),
+//                        style: StrokeStyle(lineWidth: width, lineCap: .round)
+//                )
+//                .rotationEffect(Angle(degrees: -90))
         }
         .frame(width: ringDiameter, height: ringDiameter)
         

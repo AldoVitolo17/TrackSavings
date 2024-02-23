@@ -7,90 +7,70 @@
 import SwiftUI
 import SwiftData
 
+
+
 struct GoalDetailView: View {
     let goal: Goal
     @State private var addSavingModal = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Query private var savingsEntries : [Saving]
     
-//    @FetchRequest(
-//        entity: Saving.entity(),
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Saving.date, ascending: true)],
-//        predicate: NSPredicate(format: "goal == %@", goal.id)
-//    ) private var savingsEntries: FetchedResults<Saving> // Fetches savings related to this goal
-    
-//    
-//init(goal: Goal) {
-//    self.goal = goal
-//    self.descriptor = FetchDescriptor<Saving>(predicate: #Predicate<Saving> { saving in
-//        saving.id == goal.id})
-//}
-//
-//@Query(descriptor) private var savingsEntries: [Saving]
-    
-    @Query private var savingsEntries: [Saving]
-
-    var progress: Double {
-        // Calculate the progress based on the goal's total cost and the total saved amount
-        let totalSavings = savingsEntries.reduce(0) { $0 + $1.amount }
-        return totalSavings / goal.cost
-    }
-
     var body: some View {
         NavigationView {
-            ZStack { //Fix the UI
-                VStack(spacing: 20) {
-                    // Custom CircularProgressView with the progress and goal image
-                    CircularProgressView(progress: progress, image: goal.image)
-                        .frame(width: 150, height: 250) // Adjust size as needed
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("General")
-                            .fontDesign(.rounded)
-                            .font(.caption)
-                            .foregroundStyle(Color.secondary)
-                            .padding(.leading)
-                        DetailRow(label: "Total cost", value: String(format: "£%.2f", goal.cost))
-                        Divider()
-                        DetailRow(label: "Total saved", value: String(format: "£%.2f", savingsEntries.reduce(0) { $0 + $1.amount }))
-                        Divider()
-                    }
-
-                    .padding([.top, .horizontal])
-                    
-                    // New Saving Button
-                    Button(action: { addSavingModal.toggle() }) {
-                        HStack {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.green)
-                            Text("New saving")
+            ZStack { 
+                //
+                DynamicQueryView( filterByTitle: goal.item) {(savings: [Saving], totalSavings: Double) in
+                    VStack(spacing: 20) {
+                        CircularProgressView(progress: totalSavings, image: goal.image)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("General")
+                                .fontDesign(.rounded)
+                                .font(.caption)
+                                .foregroundStyle(Color.secondary)
+                                .padding(.leading)
+                            DetailRow(label: "Total cost", value: String(format: "£%.2f", goal.cost))
+                            Divider()
+                            DetailRow(label: "Total saved", value: String(format: "£%.2f", totalSavings))
+                            Divider()
                         }
-                    }                        .fullScreenCover(isPresented: $addSavingModal) {
-                        AddSavingView(isPresented: $addSavingModal)
-                    }
-                    .padding([.horizontal, .top])
-                    
-                    
-                    
-                    ForEach(savingsEntries) { saving in
-                        HStack(alignment: .center){
-                            Image(systemName: "dollarsign.circle.fill")
-                                .foregroundStyle(Color("PrimaryColor"))
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                            
-                            VStack(alignment: .leading){
-                                Text("\(saving.date, formatter: dateFormatter)")
-                                
-                                Text("\(saving.date, formatter: timeFormatter)")
-                                    .foregroundStyle(Color.secondary)
+                        
+                        .padding([.top, .horizontal])
+                        
+                        // New Saving Button
+                        Button(action: {
+                            // Action to add new saving
+                        }) {
+                            HStack {
+                                Image(systemName: "plus.circle.fill")
+                                    .foregroundColor(.green)
+                                Text("New saving")
                             }
-                            
-                            Spacer()
-                            Text("£\(saving.amount, specifier: "%.2f")")
                         }
-                        .padding(.horizontal)
+                        .padding([.horizontal, .top])
+                        
+                        ForEach(savings) { saving in
+                            HStack(alignment: .center){
+                                Image(systemName: "dollarsign.circle.fill")
+                                    .foregroundStyle(Color("PrimaryColor"))
+                                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                
+                                VStack(alignment: .leading){
+                                    Text("\(saving.date, formatter: dateFormatter)")
+                                    
+                                    Text("\(saving.date, formatter: timeFormatter)")
+                                        .foregroundStyle(Color.secondary)
+                                }
+                                
+                                Spacer()
+                                Text("£\(saving.amount, specifier: "%.2f")")
+                            }
+                            .padding(.horizontal)
+                        }
+//                        .onDelete(perform: deleteSaving)
+                        
                     }
-                    .onDelete(perform: deleteSaving)
                     
                     // Delete Goal Button
                     Button("Delete Goal", role: .destructive){
@@ -115,6 +95,7 @@ struct GoalDetailView: View {
         .fontDesign(.rounded)
     }
     
+    
     private func saveChanges() {
         // Implement save functionality
     }
@@ -123,12 +104,12 @@ struct GoalDetailView: View {
         modelContext.delete(goal)
     }
     
-    private func deleteSaving(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { savingsEntries[$0] }.forEach(modelContext.delete)
-            // Save the context after deletion
-        }
-    }
+//    private func deleteSaving(offsets: IndexSet) {
+//        withAnimation {
+//            offsets.map { savings[$0] }.forEach(modelContext.delete)
+//            // Save the context after deletion
+//        }
+//    }
 }
 
 private let dateFormatter: DateFormatter = {
@@ -150,7 +131,7 @@ private let timeFormatter: DateFormatter = {
 struct DetailRow: View {
     var label: String
     var value: String
-
+    
     var body: some View {
         HStack {
             Text(label).padding(.leading)
@@ -162,6 +143,31 @@ struct DetailRow: View {
 }
 
 
+//MARK: - Query for filtering and calculating savings
+public struct DynamicQueryView<T: PersistentModel, Content: View>: View {
+    @Query var query: [T]
+    let content: ( [T], Double ) -> Content
+    
+    public var body: some View {
+        // Compute total savings here
+        let totalSavings = query.reduce(0) { $0 + ($1 as! Saving).amount }
+        self.content(query, totalSavings)
+    }
+    
+    public init(descriptor: FetchDescriptor<T>, @ViewBuilder content: @escaping ([T], Double)  -> Content) {
+        _query = Query(descriptor)
+        self.content = content
+    }
+}
+
+extension DynamicQueryView where T: Saving {
+    init(filterByTitle searchTitle: String, @ViewBuilder content: @escaping ([T], Double)  -> Content) {
+        
+        let filter = #Predicate<T> { $0.goal.contains(searchTitle) }
+        let sort = [SortDescriptor(\T.date)]
+        self.init(descriptor: FetchDescriptor(predicate: filter, sortBy: sort), content: content)
+    }
+}
 
 #Preview {
     ModelPreview{ goal in
