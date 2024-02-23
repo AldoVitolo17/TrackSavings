@@ -6,6 +6,8 @@
 //
 import SwiftData
 import SwiftUI
+import NotificationCenter
+import UserNotifications
 
 struct NewGoalView: View {
     @Binding var isPresented: Bool
@@ -41,30 +43,30 @@ struct NewGoalView: View {
                 TextField("", text: $costText, prompt: Text("Goal Amount")
                     .font(.title)
                     .foregroundColor(Color("TextSecondaryColor")
-                    .opacity(0.36))) // Bind to the String
-                    .foregroundStyle(Color("TextPrimaryColor"))
-                    .padding()
-                    .background(Color("PrimaryColor"))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .frame(width: 300, height: 200, alignment: .center)
-                    .multilineTextAlignment(.center)
-                    .focused($keyboardFocused)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            keyboardFocused = true
-                        }
+                        .opacity(0.36))) // Bind to the String
+                .foregroundStyle(Color("TextPrimaryColor"))
+                .padding()
+                .background(Color("PrimaryColor"))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(width: 300, height: 200, alignment: .center)
+                .multilineTextAlignment(.center)
+                .focused($keyboardFocused)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        keyboardFocused = true
                     }
-                    .keyboardType(.decimalPad)
-                    .onChange(of: costText) { newValue in
-                        self.cost = Double(newValue) ?? 0 // Convert the input to Double
-                    }
-
+                }
+                .keyboardType(.decimalPad)
+                .onChange(of: costText) { newValue in
+                    self.cost = Double(newValue) ?? 0 // Convert the input to Double
+                }
+                
                 List{
                     HStack{
                         Image(systemName: "target")
                         TextField("", text: $item, prompt: Text("Goal Name")
                             .foregroundColor(Color("TextSecondaryColor")
-                            .opacity(0.36)))
+                                .opacity(0.36)))
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
@@ -133,7 +135,7 @@ struct NewGoalView: View {
                         }
                     }.disabled(item.isEmpty && costText.isEmpty)
                 }
-
+                
             }
             .fontDesign(.rounded)
             .toolbarColorScheme(.light, for: .navigationBar)
@@ -147,6 +149,7 @@ struct NewGoalView: View {
     
     
     //MARK: - private mehods
+    // In NewGoalView
     private func saveGoal() {
         let existingGoal = goals.first { $0.item == item }
         
@@ -156,11 +159,12 @@ struct NewGoalView: View {
             print("A goal with the same name already exists. Please choose a different name.")
         } else {
             // Save the goal if the item name is unique
-            let newGoal = Goal(item: item, image: image, cost: cost, date: date)
+            let newGoal = Goal(item: item, image: image, cost: cost, date: date, reminder: selectedReminder.rawValue)
             modelContext.insert(newGoal)
             try? modelContext.save()
             dismiss()
         }
+        NotificationManager.instance.requestNotifications(reminder: selectedReminder.rawValue)
     }
 }
 

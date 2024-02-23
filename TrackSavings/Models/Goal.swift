@@ -16,17 +16,19 @@ final class Goal: Identifiable {
     var image: String
     var cost: Double
     var date: Date
+    var reminder: String
     
-    init(item: String, image: String, cost: Double, date: Date) {
+    init(item: String, image: String, cost: Double, date: Date, reminder: String) {
         self.id = item // Assigning item name as ID
         self.item = item
         self.image = image
         self.cost = cost
         self.date = date
+        self.reminder = reminder
     }
     
     static func exampleGoal() -> Goal {
-        let goal = Goal(item: "dyson", image: "car", cost: 533.00, date: Date.now)
+        let goal = Goal(item: "dyson", image: "car", cost: 533.00, date: Date.now, reminder: "morning")
         return goal
     }
 }

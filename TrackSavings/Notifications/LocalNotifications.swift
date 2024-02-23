@@ -4,7 +4,7 @@
 //
 //  Created by Arantza Castro Dessavre on 20/02/24.
 //
-
+import SwiftData
 import SwiftUI
 import CoreLocation
 import UserNotifications
@@ -13,6 +13,7 @@ import UserNotifications
 class NotificationManager {
     
     static let instance = NotificationManager()
+    
     
     func requestAuthorization (){
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
@@ -25,7 +26,7 @@ class NotificationManager {
         }
     }
     
-    func requestNotifications() {
+    func requestNotifications(reminder: String) {
         
         //Notifications content
         let contentT = UNMutableNotificationContent()
@@ -52,8 +53,17 @@ class NotificationManager {
         
         /*Calendar*/
         var dateComponents = DateComponents()
-        dateComponents.minute = 29
-        dateComponents.hour = 16
+       
+        switch reminder {
+        case "morning":
+            dateComponents.hour = 10
+        case "afternoon":
+            dateComponents.hour = 16
+        case "night":
+            dateComponents.hour = 21
+        default:
+            dateComponents.hour = 16
+        }
         
         let triggerCalendar = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
@@ -95,24 +105,25 @@ class NotificationManager {
     
 }
 
-struct LocalNotificationView: View {
-    var body: some View {
-        VStack{
-            Button("Request authorization"){
-                NotificationManager.instance.requestAuthorization()
-            }
-        
-            Button("send"){
-                NotificationManager.instance.requestNotifications()
-            }
-            
-            Button("Cancel"){
-                NotificationManager.instance.cancelNotifications()
-            }
-            .onAppear{
-                let null = 0
-                UNUserNotificationCenter.current().setBadgeCount(null)
-            }
-        }
-    }
-}
+//struct LocalNotificationView: View {
+//
+////    var body: some View {
+////        VStack{
+////            Button("Request authorization"){
+////                NotificationManager.instance.requestAuthorization()
+////            }
+////        
+//////            Button("send"){
+//////                NotificationManager.instance.requestNotifications()
+//////            }
+////            
+////            Button("Cancel"){
+////                NotificationManager.instance.cancelNotifications()
+////            }
+////            .onAppear{
+////                let null = 0
+////                UNUserNotificationCenter.current().setBadgeCount(null)
+////            }
+////        }
+////    }
+//}
