@@ -23,6 +23,7 @@ struct GoalDetailView: View {
                 DynamicQueryView( filterByTitle: goal.item) {(savings: [Saving], totalSavings: Double) in
                     VStack(spacing: 20) {
                         CircularProgressView(progress: totalSavings, image: goal.image)
+                            .frame(width: 150, height: 250) // Adjust size as needed
                         
                         VStack(alignment: .leading, spacing: 8) {
                             Text("General")
@@ -38,17 +39,19 @@ struct GoalDetailView: View {
                         
                         .padding([.top, .horizontal])
                         
+                       
                         // New Saving Button
-                        Button(action: {
-                            // Action to add new saving
-                        }) {
+                        Button(action: { addSavingModal.toggle() }) {
                             HStack {
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(.green)
                                 Text("New saving")
                             }
+                        }                        .fullScreenCover(isPresented: $addSavingModal) {
+                            AddSavingView(isPresented: $addSavingModal)
                         }
                         .padding([.horizontal, .top])
+
                         
                         ForEach(savings) { saving in
                             HStack(alignment: .center){
