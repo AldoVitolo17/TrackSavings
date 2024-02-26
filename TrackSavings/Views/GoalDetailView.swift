@@ -18,7 +18,7 @@ struct GoalDetailView: View {
     
     var body: some View {
         NavigationView {
-            ZStack { 
+            ZStack {
                 //
                 DynamicQueryView( filterByTitle: goal.item) {(savings: [Saving], totalSavings: Double) in
                     VStack(spacing: 20) {
@@ -39,7 +39,7 @@ struct GoalDetailView: View {
                         
                         .padding([.top, .horizontal])
                         
-                       
+                        
                         // New Saving Button
                         Button(action: { addSavingModal.toggle() }) {
                             HStack {
@@ -51,7 +51,7 @@ struct GoalDetailView: View {
                             AddSavingView(isPresented: $addSavingModal)
                         }
                         .padding([.horizontal, .top])
-
+                        
                         
                         ForEach(savings) { saving in
                             HStack(alignment: .center){
@@ -71,7 +71,7 @@ struct GoalDetailView: View {
                             }
                             .padding(.horizontal)
                         }
-//                        .onDelete(perform: deleteSaving)
+                        //                        .onDelete(perform: deleteSaving)
                         
                     }
                     
@@ -107,12 +107,12 @@ struct GoalDetailView: View {
         modelContext.delete(goal)
     }
     
-//    private func deleteSaving(offsets: IndexSet) {
-//        withAnimation {
-//            offsets.map { savings[$0] }.forEach(modelContext.delete)
-//            // Save the context after deletion
-//        }
-//    }
+    //    private func deleteSaving(offsets: IndexSet) {
+    //        withAnimation {
+    //            offsets.map { savings[$0] }.forEach(modelContext.delete)
+    //            // Save the context after deletion
+    //        }
+    //    }
 }
 
 private let dateFormatter: DateFormatter = {
@@ -144,6 +144,7 @@ struct DetailRow: View {
         .padding(.vertical, 4)
     }
 }
+
 
 
 //MARK: - Query for filtering and calculating savings
