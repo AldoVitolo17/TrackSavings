@@ -10,35 +10,41 @@ import SwiftData
 
 
 struct GoalDetailView: View {
-    let goal: Goal
     @State private var addSavingModal = false
+    
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    
     @Query private var savingsEntries : [Saving]
+    
+    let goal: Goal
     
     var body: some View {
         NavigationView {
-            ZStack {
-                //
+            ZStack(alignment: .top) {
                 DynamicQueryView( filterByTitle: goal.item) {(savings: [Saving], totalSavings: Double) in
+                    
                     VStack(spacing: 20) {
+                        //Top Icon
                         CircularProgressView(progress: totalSavings, image: goal.image)
                             .frame(width: 150, height: 250) // Adjust size as needed
                         
+                        //General info of Goal
                         VStack(alignment: .leading, spacing: 8) {
+                            
                             Text("General")
-                                .fontDesign(.rounded)
                                 .font(.caption)
                                 .foregroundStyle(Color.secondary)
                                 .padding(.leading)
+                            
                             DetailRow(label: "Total cost", value: String(format: "£%.2f", goal.cost))
                             Divider()
+                            
                             DetailRow(label: "Total saved", value: String(format: "£%.2f", totalSavings))
                             Divider()
+                            
                         }
-                        
                         .padding([.top, .horizontal])
-                        
                         
                         // New Saving Button
                         Button(action: { addSavingModal.toggle() }) {
@@ -53,23 +59,25 @@ struct GoalDetailView: View {
                         .padding([.horizontal, .top])
                         
                         
-                        ForEach(savings) { saving in
-                            HStack(alignment: .center){
-                                Image(systemName: "dollarsign.circle.fill")
-                                    .foregroundStyle(Color("PrimaryColor"))
-                                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                                
-                                VStack(alignment: .leading){
-                                    Text("\(saving.date, formatter: dateFormatter)")
+                        ScrollView {
+                            ForEach(savings) { saving in
+                                HStack(alignment: .center){
+                                    Image(systemName: "dollarsign.circle.fill")
+                                        .foregroundStyle(Color("PrimaryColor"))
+                                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                                     
-                                    Text("\(saving.date, formatter: timeFormatter)")
-                                        .foregroundStyle(Color.secondary)
+                                    VStack(alignment: .leading){
+                                        Text("\(saving.date, formatter: dateFormatter)")
+                                        
+                                        Text("\(saving.date, formatter: timeFormatter)")
+                                            .foregroundStyle(Color.secondary)
+                                    }
+                                    
+                                    Spacer()
+                                    Text("£\(saving.amount, specifier: "%.2f")")
                                 }
-                                
-                                Spacer()
-                                Text("£\(saving.amount, specifier: "%.2f")")
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
                         }
                         //                        .onDelete(perform: deleteSaving)
                         
@@ -89,8 +97,7 @@ struct GoalDetailView: View {
                 .toolbarBackground(.visible, for: .navigationBar)
                 .background(Color("BackgroundColor"))
                 .navigationBarItems(
-                    leading: Button("Cancel") { dismiss() },
-                    trailing: Button("Done", action: saveChanges))
+                    leading: Button("Done") { dismiss() })
             }
         }
         .navigationBarBackButtonHidden(true)

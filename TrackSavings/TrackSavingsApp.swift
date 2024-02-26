@@ -29,6 +29,5 @@ struct TrackSavingsApp: App {
             ContentView()
         }
         .modelContainer(sharedModelContainer)
-    
     }
 }

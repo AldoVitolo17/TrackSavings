@@ -11,29 +11,32 @@ import UserNotifications
 
 struct NewGoalView: View {
     @Binding var isPresented: Bool
+    
     @Environment(\.modelContext) private var modelContext
     @Environment (\.dismiss) private var dismiss
+    
     @Query private var goals: [Goal]
+    @Query private var savings: [Saving]
+    
     @State private var item: String = ""
     @State private var image: String = ""
     @State private var costText: String = ""
     @State private var cost: Double = Double()
-    @Query private var savings: [Saving]
-    private var totalAmount: Double {
-        return savings.reduce(0) { $0 + $1.amount }
-    }
     @State private var date: Date = Date()
     @State private var notificationType: Int = 0
     @FocusState private var keyboardFocused: Bool
+    
     @State private var selectedItem: Item = .car
+    
     enum Item: String, CaseIterable, Identifiable{
-        case car, phone, gamecontroller
+        case car = "car", phone = "phone", gamecontroller = "gamecontroller"
         var id: Self {self}
     }
     
     @State private var selectedReminder: Reminder = .morning
+    
     enum Reminder: String, CaseIterable, Identifiable{
-        case morning, afternoon, night
+        case morning = "morning", afternoon = "afternoon", night = "night"
         var id: Self {self}
     }
     
@@ -159,12 +162,13 @@ struct NewGoalView: View {
             print("A goal with the same name already exists. Please choose a different name.")
         } else {
             // Save the goal if the item name is unique
-            let newGoal = Goal(item: item, image: image, cost: cost, date: date, reminder: selectedReminder.rawValue)
+            let newGoal = Goal(item: item, image: selectedItem.rawValue, cost: cost, date: date, reminder: selectedReminder.rawValue)
             modelContext.insert(newGoal)
             try? modelContext.save()
             dismiss()
+            NotificationManager.instance.requestAuthorization()
+            NotificationManager.instance.requestNotifications(reminder: selectedReminder.rawValue)
         }
-        NotificationManager.instance.requestNotifications(reminder: selectedReminder.rawValue)
     }
 }
 

@@ -10,8 +10,11 @@ import SwiftUI
 struct ContentView: View {
     @State private var newGoalModal = false
     @State private var addSavingModal = false
+    
+    @Environment(\.modelContext) private var modelContext
     @Query private var goals: [Goal]
     @Query private var savings: [Saving]
+    
     private var totalAmount: Double {
         return savings.reduce(0) { $0 + $1.amount }
     }
@@ -25,7 +28,7 @@ struct ContentView: View {
                         Color("PrimaryColor")
                             .clipShape(RoundedRectangle(cornerRadius: 25.0))
                             .ignoresSafeArea(.all)
-                            .frame(width: .infinity, height: 200)
+                            .frame(height: 200)
                             .zIndex(-1.0)
 
                         VStack{

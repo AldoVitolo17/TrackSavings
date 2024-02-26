@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "F3D733C5-FF93-4CC2-9FF6-9592D04CEE53"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E6FB05AD-9825-4628-948D-1E65121AD767"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TrackSavings/Views/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "E6FB05AD-9825-4628-948D-1E65121AD767 - c78df252dabd4ab3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.background&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ShapeStyle&gt;(_: &#x3c4;_1_0, ignoresSafeAreaEdges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt;&gt; in TrackSavings.ContentView.body.getter : some"
+                  moduleName = "TrackSavings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arantzacastrodessavre/Desktop/TrackSavings/TrackSavings/Views/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "968">
+               </Location>
+               <Location
+                  uuid = "E6FB05AD-9825-4628-948D-1E65121AD767 - c78df252dabd4ab3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.background&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ShapeStyle&gt;(_: &#x3c4;_1_0, ignoresSafeAreaEdges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt;&gt; in TrackSavings.ContentView.body.getter : some"
+                  moduleName = "TrackSavings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/arantzacastrodessavre/Desktop/TrackSavings/TrackSavings/Views/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "952">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
