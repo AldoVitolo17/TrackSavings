@@ -45,9 +45,8 @@ struct NewGoalView: View {
             VStack{
                 TextField("", text: $costText, prompt: Text("Goal Amount")
                     .font(.title)
-                    .foregroundColor(Color("TextSecondaryColor")
-                        .opacity(0.36))) // Bind to the String
-                .foregroundStyle(Color("TextPrimaryColor"))
+                    .foregroundColor(Color("TextSecondaryColor").opacity(0.5))) // Bind to the String
+                .foregroundStyle(Color("TextTertiaryColor"))
                 .padding()
                 .background(Color("PrimaryColor"))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -68,8 +67,7 @@ struct NewGoalView: View {
                     HStack{
                         Image(systemName: "target")
                         TextField("", text: $item, prompt: Text("Goal Name")
-                            .foregroundColor(Color("TextSecondaryColor")
-                                .opacity(0.36)))
+                            .foregroundColor(Color("TextPrimaryColor").opacity(0.5)))
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
@@ -94,6 +92,7 @@ struct NewGoalView: View {
                             Text("Afternoons").tag(Reminder.afternoon)
                             Text("Nights").tag(Reminder.night)
                         }
+                        .foregroundStyle(Color("TextPrimaryColor"))
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)
@@ -109,7 +108,6 @@ struct NewGoalView: View {
                             Image(systemName: "phone").tag(NewGoalView.Item.phone)
                             Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller)
                         }
-                        
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
                     .listRowBackground(Color.clear)

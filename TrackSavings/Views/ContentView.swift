@@ -37,7 +37,7 @@ struct ContentView: View {
                             Text("$\(totalAmount, specifier: "%.2f")")
                         }
                         .font(.title)
-                        .foregroundStyle(Color("TextPrimaryColor"))
+                        .foregroundStyle(Color("TextTertiaryColor"))
                         .padding()
                     }
                     VStack{
@@ -56,35 +56,41 @@ struct ContentView: View {
                             }
 
                         }
-                        List(goals) { goal in
-                            NavigationLink(destination: GoalDetailView(goal: goal)) {
-                                HStack {
-                                    Image(systemName: goal.image)
+                        
+                        if goals.isEmpty {
+                            Text("Add a goal to start tracking")
+                                .frame(maxHeight: 500,alignment: .center)
+                        } else {
+                            List(goals) { goal in
+                                NavigationLink(destination: GoalDetailView(goal: goal)) {
+                                    HStack {
+                                        Image(systemName: goal.image)
 
-                                    Text(goal.item)
-                                    Spacer()
-                                    Text("$\(goal.cost, specifier: "%.2f")")
+                                        Text(goal.item)
+                                        Spacer()
+                                        Text("$\(goal.cost, specifier: "%.2f")")
+                                    }
                                 }
+                                .foregroundStyle(Color("TextPrimaryColor"))
+                                .listRowBackground(Color.clear)
+                                .listRowSeparatorTint(Color("TextPrimaryColor"))
                             }
-                            .foregroundStyle(Color("TextPrimaryColor"))
-                            .listRowBackground(Color.clear)
-                            .listRowSeparatorTint(Color("TextPrimaryColor"))
+                            .listStyle(.plain)
+                            .background(Color.clear)
+
                         }
-                        .listStyle(.plain)
-                        .background(Color.clear)
                         
                         Button(action: { addSavingModal.toggle() }) {
                             Text("Add Savings")
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color("PrimaryColor"))
-                                .foregroundStyle(Color("TextPrimaryColor"))
+                                .foregroundStyle(Color("TextTertiaryColor"))
                                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         }
                         .fullScreenCover(isPresented: $addSavingModal) {
                             AddSavingView(isPresented: $addSavingModal)
                         }
-                        .shadow(color: .gray, radius: 2, x: 0.0, y: 2)
                     }
                     .padding()
                     .padding([.bottom,.horizontal], 20)

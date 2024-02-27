@@ -29,7 +29,7 @@ struct AddSavingView: View {
                 TextField("", text: $amountText, prompt: Text("Saved Amount")
                     .foregroundColor(Color("TextSecondaryColor")
                         .opacity(0.36))) // Bind to the String
-                    .foregroundStyle(Color("TextPrimaryColor"))
+                    .foregroundStyle(Color("TextTertiaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -106,7 +106,6 @@ struct AddSavingView: View {
             .toolbarBackground(Color("PrimaryColor"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .background(Color("BackgroundColor"))
-            
         }
     }
     
