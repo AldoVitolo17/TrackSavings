@@ -57,9 +57,26 @@ struct ContentView: View {
 
                         }
                         
-                        if goals.isEmpty {
-                            Text("Add a goal to start tracking")
+                        if goals.isEmpty {
+                            Text("Press **”+”** to add a goal")
                                 .frame(maxHeight: 500,alignment: .center)
+                                .font(.title3)
+                            
+                            Button(action: { addSavingModal.toggle() }) {
+                                Text("Add Savings")
+                                    .bold()
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color("TextPrimaryColor").opacity(0.33))
+                                    .foregroundStyle(Color("TextTertiaryColor"))
+                                    .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                            }
+                            .fullScreenCover(isPresented: $addSavingModal) {
+                                AddSavingView(isPresented: $addSavingModal)
+                            }
+                            .disabled(true)
+
+
                         } else {
                             List(goals) { goal in
                                 NavigationLink(destination: GoalDetailView(goal: goal)) {
@@ -78,19 +95,21 @@ struct ContentView: View {
                             .listStyle(.plain)
                             .background(Color.clear)
 
+                            Button(action: { addSavingModal.toggle() }) {
+                                Text("Add Savings")
+                                    .bold()
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color("PrimaryColor"))
+                                    .foregroundStyle(Color("TextTertiaryColor"))
+                                    .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                            }
+                            .fullScreenCover(isPresented: $addSavingModal) {
+                                AddSavingView(isPresented: $addSavingModal)
+                            }
+
                         }
                         
-                        Button(action: { addSavingModal.toggle() }) {
-                            Text("Add Savings")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("PrimaryColor"))
-                                .foregroundStyle(Color("TextTertiaryColor"))
-                                .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                        }
-                        .fullScreenCover(isPresented: $addSavingModal) {
-                            AddSavingView(isPresented: $addSavingModal)
-                        }
                     }
                     .padding()
                     .padding([.bottom,.horizontal], 20)
