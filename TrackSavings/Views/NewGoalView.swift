@@ -44,21 +44,21 @@ struct NewGoalView: View {
         NavigationView {
             VStack{
                 TextField("", text: $costText, prompt: Text("Goal Amount")
+                    .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                    .foregroundStyle(Color("TextTertiaryColor"))
+                    .padding()
+                    .background(Color("PrimaryColor"))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .frame(width: 300, height: 200, alignment: .center)
+                    .multilineTextAlignment(.center)
                     .font(.title)
-                    .foregroundColor(Color("TextSecondaryColor").opacity(0.5))) // Bind to the String
-                .foregroundStyle(Color("TextTertiaryColor"))
-                .padding()
-                .background(Color("PrimaryColor"))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .frame(width: 300, height: 200, alignment: .center)
-                .multilineTextAlignment(.center)
-                .focused($keyboardFocused)
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        keyboardFocused = true
+                    .focused($keyboardFocused)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            keyboardFocused = true
+                        }
                     }
-                }
-                .keyboardType(.decimalPad)
+                    .keyboardType(.decimalPad)
                 .onChange(of: costText) { newValue in
                     self.cost = Double(newValue) ?? 0 // Convert the input to Double
                 }

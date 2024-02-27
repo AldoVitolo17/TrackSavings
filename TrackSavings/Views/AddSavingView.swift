@@ -27,8 +27,7 @@ struct AddSavingView: View {
         NavigationView {
             VStack{
                 TextField("", text: $amountText, prompt: Text("Saved Amount")
-                    .foregroundColor(Color("TextSecondaryColor")
-                        .opacity(0.36))) // Bind to the String
+                    .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                     .foregroundStyle(Color("TextTertiaryColor"))
                     .padding()
                     .background(Color("PrimaryColor"))
