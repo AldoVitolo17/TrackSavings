@@ -21,7 +21,7 @@ struct CircularProgressView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color(hue: 0.0, saturation: 0.0, brightness: 0.0), lineWidth: 10)
+                .stroke(Color("TextPrimaryColor"), lineWidth: 10)
                 .overlay() {
                     Image(systemName: "\(image)")
                         .font(.system(size: ringDiameter/3, weight: .bold, design:.rounded))
