@@ -30,7 +30,7 @@ struct AddSavingView: View {
                     .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                     .foregroundStyle(Color("TextTertiaryColor"))
                     .padding()
-                    .background(Color("PrimaryColor"))
+                    .background(Color("SecondaryColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(width: 300, height: 200, alignment: .center)
                     .multilineTextAlignment(.center)
