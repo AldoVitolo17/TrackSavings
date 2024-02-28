@@ -32,7 +32,7 @@ struct ContentView: View {
                             .zIndex(-1.0)
 
                         VStack{
-                            Text("Total saved:")
+                            Text("TotalSaved")
                                 .bold()
                             Text("$\(totalAmount, specifier: "%.2f")")
                         }
@@ -42,7 +42,7 @@ struct ContentView: View {
                     }
                     VStack{
                         HStack{
-                            Text("My Goals")
+                            Text("MyGoals")
                                 .font(.title)
                                 .foregroundStyle(Color("TextPrimaryColor"))
                                 .bold()
@@ -58,12 +58,12 @@ struct ContentView: View {
                         }
                         
                         if goals.isEmpty {
-                            Text("Press **”+”** to add a goal")
+                            Text("AddGoalPlaceholder")
                                 .frame(maxHeight: 500,alignment: .center)
                                 .font(.title3)
                             
                             Button(action: { addSavingModal.toggle() }) {
-                                Text("Add Savings")
+                                Text("AddSaving")
                                     .bold()
                                     .frame(maxWidth: .infinity)
                                     .padding()
@@ -96,7 +96,7 @@ struct ContentView: View {
                             .background(Color.clear)
 
                             Button(action: { addSavingModal.toggle() }) {
-                                Text("Add Savings")
+                                Text("AddSaving")
                                     .bold()
                                     .frame(maxWidth: .infinity)
                                     .padding()
