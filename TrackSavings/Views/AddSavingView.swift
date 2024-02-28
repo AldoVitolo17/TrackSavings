@@ -42,18 +42,21 @@ struct AddSavingView: View {
                         }
                     }
                     .keyboardType(.decimalPad)
-                    .onChange(of: amountText) { newValue in
+                    .onChange(of: amountText) { oldValue, newValue in
                         self.amount = Double(newValue) ?? 0 // Convert the input to Double
                     }
 
                 List{
                     HStack{
                         Image(systemName: "list.bullet.circle")
-                        Text("Goal")
-                        Spacer()
-                        Picker("", selection: $selectedGoal) {
-                            ForEach(goals, id: \.id){ goal in
-                                Text(goal.item)
+                        Picker("Goal", selection: $selectedGoal) {
+                            ForEach(goals, id: \.id) { goal in
+                                Text(goal.item).tag(goal.item)
+                            }
+                        }
+                        .onAppear {
+                            if selectedGoal == "" {
+                                selectedGoal = goals.first?.item ?? ""
                             }
                         }
                     }
@@ -95,7 +98,7 @@ struct AddSavingView: View {
                                 dismiss()
                             }
                         }
-                    }.disabled(amountText.isEmpty)
+                    }.disabled(amountText.isEmpty || selectedGoal.isEmpty)
                 }
 
             }

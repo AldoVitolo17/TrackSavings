@@ -85,9 +85,7 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "bell.circle")
-                        Text("Notification")
-                        Spacer()
-                        Picker("", selection: $selectedReminder) {
+                        Picker("Notification", selection: $selectedReminder) {
                             Text("Mornings").tag(Reminder.morning)
                             Text("Afternoons").tag(Reminder.afternoon)
                             Text("Nights").tag(Reminder.night)
@@ -100,10 +98,7 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "list.bullet.circle")
-                        Text("Select From List")
-                        Spacer()
-                        
-                        Picker("", selection: $selectedItem){
+                        Picker("Select From List", selection: $selectedItem){
                             Image(systemName: "laptopcomputer").tag(NewGoalView.Item.laptop)
                             Image(systemName: "car").tag(NewGoalView.Item.car)
                             Image(systemName: "house").tag(NewGoalView.Item.house)
@@ -141,7 +136,7 @@ struct NewGoalView: View {
                                 saveGoal()
                             }
                         }
-                    }.disabled(item.isEmpty && costText.isEmpty)
+                    }.disabled(item.isEmpty || costText.isEmpty)
                 }
                 
             }
