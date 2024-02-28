@@ -48,7 +48,7 @@ struct AddSavingView: View {
 
                 List{
                     HStack{
-                        Image(systemName: "list.bullet")
+                        Image(systemName: "list.bullet.circle")
                         Text("Goal")
                         Spacer()
                         Picker("", selection: $selectedGoal) {
@@ -63,7 +63,7 @@ struct AddSavingView: View {
 
                     DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
                         HStack{
-                            Image(systemName: "calendar")
+                            Image(systemName: "calendar.circle")
                             Text("Calendar")
                         }
                     }

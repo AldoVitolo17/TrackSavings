@@ -52,6 +52,7 @@ struct GoalDetailView: View {
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(.green)
                                 Text("New saving")
+                                    .foregroundStyle(Color("TextPrimaryColor"))
                             }
                         }                        .fullScreenCover(isPresented: $addSavingModal) {
                             AddSavingView(isPresented: $addSavingModal)

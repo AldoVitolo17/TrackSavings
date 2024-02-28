@@ -26,10 +26,10 @@ struct NewGoalView: View {
     @State private var notificationType: Int = 0
     @FocusState private var keyboardFocused: Bool
     
-    @State private var selectedItem: Item = .car
+    @State private var selectedItem: Item = .laptop
     
     enum Item: String, CaseIterable, Identifiable{
-        case car = "car", phone = "phone", gamecontroller = "gamecontroller"
+        case laptop = "laptopcomputer", car = "car", house = "house", gamecontroller = "gamecontroller", food = "fork.knife", dollar = "dollarsign", pencil = "pencil", bus = "bus", bag = "bag", phone = "phone"
         var id: Self {self}
     }
     
@@ -75,7 +75,7 @@ struct NewGoalView: View {
                     
                     DatePicker(selection: $date, in: Date.now..., displayedComponents: .date) {
                         HStack{
-                            Image(systemName: "calendar")
+                            Image(systemName: "calendar.circle")
                             Text("Calendar").fontDesign(.rounded)
                         }
                     }
@@ -84,8 +84,8 @@ struct NewGoalView: View {
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
                     
                     HStack{
-                        Image(systemName: "bell.fill")
-                        Text("Reminder")
+                        Image(systemName: "bell.circle")
+                        Text("Notification")
                         Spacer()
                         Picker("", selection: $selectedReminder) {
                             Text("Mornings").tag(Reminder.morning)
@@ -99,14 +99,21 @@ struct NewGoalView: View {
                     .listRowSeparatorTint(Color("TextSecondaryColor").opacity(0.66))
                     
                     HStack{
-                        Image(systemName: "tag.fill")
-                        Text("Tag")
+                        Image(systemName: "list.bullet.circle")
+                        Text("Select From List")
                         Spacer()
                         
                         Picker("", selection: $selectedItem){
+                            Image(systemName: "laptopcomputer").tag(NewGoalView.Item.laptop)
                             Image(systemName: "car").tag(NewGoalView.Item.car)
-                            Image(systemName: "phone").tag(NewGoalView.Item.phone)
+                            Image(systemName: "house").tag(NewGoalView.Item.house)
                             Image(systemName: "gamecontroller").tag(NewGoalView.Item.gamecontroller)
+                            Image(systemName: "fork.knife").tag(NewGoalView.Item.food)
+                            Image(systemName: "dollarsign").tag(NewGoalView.Item.dollar)
+                            Image(systemName: "pencil").tag(NewGoalView.Item.pencil)
+                            Image(systemName: "bus").tag(NewGoalView.Item.bus)
+                            Image(systemName: "bag").tag(NewGoalView.Item.bag)
+                            Image(systemName: "phone").tag(NewGoalView.Item.phone)
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
