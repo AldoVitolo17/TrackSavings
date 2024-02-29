@@ -245,6 +245,9 @@
         }
       }
     },
+    "Goal Amount" : {
+
+    },
     "GoalAmount" : {
       "extractionState" : "manual",
       "localizations" : {
