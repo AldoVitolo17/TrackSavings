@@ -9,7 +9,14 @@ import SwiftUI
 
 struct SemiCircularProgressModel: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Path { path in
+            let center = CGPoint(x: 150, y: 100)
+            let radius: CGFloat = 50
+            let startAngle: Angle = .degrees(0)
+            let endAngle: Angle = .degrees(180)
+            path.addArc(center: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+        }
+        .stroke(Color.green, lineWidth: 10)
     }
 }
 

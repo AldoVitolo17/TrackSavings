@@ -37,9 +37,10 @@ struct GoalDetailView: View {
                             .font(.subheadline)
                             .foregroundStyle(Color.secondary)
 
-                        CircularProgressView(progress: totalSavings/goal.cost, image: goal.image)
+                        SemiCircularProgressView(progress: totalSavings/goal.cost, image: goal.image)
                             .frame(width: 150, height: 150) // Adjust size as needed
-                        
+                            .padding(.top, 60)
+
                         HStack{
                             VStack{
                                 Text(LocalizedStringKey("Balance"))
@@ -83,14 +84,15 @@ struct GoalDetailView: View {
                                         .bold()
                                         .padding()
                                         .lineLimit(1)
+                                        .scaledToFill()
                                         .frame(maxWidth: .infinity)
                                         .background(Color("PrimaryColor"))
                                         .foregroundStyle(Color("TextTertiaryColor"))
-                                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
                                 }
-                                .padding()
+                                .padding(.horizontal, 8)
                             }
-                            .frame(width: 300, height: 200, alignment: .center)
+                            .frame(width: 300, height: 70, alignment: .center)
                             .background(Color("TextSecondaryColor").opacity(0.1))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
 

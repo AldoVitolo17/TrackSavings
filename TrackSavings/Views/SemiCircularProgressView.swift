@@ -11,8 +11,8 @@ import SwiftData
 struct SemiCircularProgressView: View {
     @State var progress: Double
     @State var image: String
-    let ringDiameter = 150.0
-    let width = 15.0
+    let ringDiameter = 250.0
+    let width = 20.0
     
     private var rotationAngle: Angle {
         return Angle(degrees: (360.0 * progress))
@@ -20,18 +20,34 @@ struct SemiCircularProgressView: View {
     
     var body: some View {
         ZStack {
-            Circle()
-                .stroke(Color("TextPrimaryColor"), lineWidth: 10)
-                .overlay() {
+            Path { path in
+                path.addArc(center: CGPoint(x: ringDiameter / 2, y: ringDiameter / 2),
+                            radius: CGFloat(ringDiameter / 2),
+                            startAngle: .degrees(0),
+                            endAngle: .degrees(180),
+                            clockwise: true)
+            }
+            .stroke(Color("TextPrimaryColor"), style: StrokeStyle(lineWidth: width, lineCap: .round))
+            .overlay() {
+                VStack {
                     Image(systemName: "\(image)")
                         .font(.system(size: ringDiameter/3, weight: .bold, design:.rounded))
+                    Text("\(progress*100, specifier: "%.f")%").fontWeight(.bold).font(.system(size: 37))
                 }
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(Color("PrimaryColor"),
-                        style: StrokeStyle(lineWidth: width, lineCap: .round)
-                )
-                .rotationEffect(Angle(degrees: -90))
+            }
+            
+            Path { path in
+                path.addArc(center: CGPoint(x: ringDiameter / 2, y: ringDiameter / 2),
+                            radius: CGFloat(ringDiameter / 2),
+                            startAngle: .degrees(180),
+                            endAngle: .degrees(180 - (min(progress, 1.0) * 180)),
+                            clockwise: true)
+            }
+            .stroke(Color("PrimaryColor"),
+                    style: StrokeStyle(lineWidth: width, lineCap: .round)
+            )
+            .rotationEffect(Angle(degrees: 180))
+            .scaleEffect(x: -1, y: 1, anchor: .center)
         }
         .frame(width: ringDiameter, height: ringDiameter)
         
@@ -39,5 +55,5 @@ struct SemiCircularProgressView: View {
 }
 
 #Preview {
-    SemiCircularProgressView(progress: 0.5, image: "car")
+    SemiCircularProgressView(progress: 0.647, image: "car")
 }
