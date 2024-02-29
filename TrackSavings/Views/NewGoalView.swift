@@ -54,10 +54,24 @@ struct NewGoalView: View {
                     Picker("", selection: $selectedCurrrency) {
                         ForEach(Currencies.allCases) { currency in
                             Text(currency.rawValue)
+                            TextField("", text: $costText, prompt: Text("GoalAmount")
+                                .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                            .foregroundStyle(Color("TextTertiaryColor"))
+                            .padding()
+                            .background(Color("SecondaryColor"))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(width: 300, height: 200, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .font(.title)
+                            .focused($keyboardFocused)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    keyboardFocused = true
+                                }
+                            }
+                            .frame(minWidth: 80, idealWidth: 80, maxWidth: 90)
                         }
                     }
-                    .frame(minWidth: 80, idealWidth: 80, maxWidth: 90)
-
                     Spacer()
                     TextField("", text: $costText, prompt: Text("Goal Amount")
                         .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
@@ -83,7 +97,7 @@ struct NewGoalView: View {
                 List{
                     HStack{
                         Image(systemName: "target")
-                        TextField("", text: $item, prompt: Text("Goal Name")
+                        TextField("", text: $item, prompt: Text("GoalName")
                             .foregroundColor(Color("TextPrimaryColor").opacity(0.5)))
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -115,7 +129,7 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "list.bullet.circle")
-                        Picker("Select From List", selection: $selectedItem){
+                        Picker("SelectFromList", selection: $selectedItem){
                             Image(systemName: "laptopcomputer").tag(NewGoalView.Item.laptop)
                             Image(systemName: "car").tag(NewGoalView.Item.car)
                             Image(systemName: "house").tag(NewGoalView.Item.house)
@@ -135,7 +149,7 @@ struct NewGoalView: View {
                 .listStyle(.plain)
                 .background(Color.clear)
             }
-            .navigationTitle("New Goal")
+            .navigationTitle("NewGoalTitle")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
@@ -176,7 +190,7 @@ struct NewGoalView: View {
         if let existingGoal = existingGoal {
             // Prompt the user that the goal name is already used
             // You can show an alert or handle this situation as per your UI/UX design
-            print("A goal with the same name already exists. Please choose a different name.")
+            print("ExistingGoal")
         } else {
             // Save the goal if the item name is unique
             let newGoal = Goal(item: item, image: selectedItem.rawValue, cost: cost, date: date, reminder: selectedReminder.rawValue, currency: selectedCurrrency.rawValue)

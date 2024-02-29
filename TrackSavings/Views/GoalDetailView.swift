@@ -45,10 +45,10 @@ struct GoalDetailView: View {
                                 .foregroundStyle(Color.secondary)
                                 .padding(.leading)
                             
-                            DetailRow(label: "Total cost", value: String(format: "£%.2f", goal.cost))
+                            DetailRow(label: Text(LocalizedStringKey("TotalCost")), value: String(format: "£%.2f", goal.cost))
                             Divider()
                             
-                            DetailRow(label: "Total saved", value: String(format: "£%.2f", totalSavings))
+                            DetailRow(label: Text(LocalizedStringKey("TotalSaved")), value: String(format: "£%.2f", totalSavings))
                             Divider()
                             
                         }
@@ -59,7 +59,7 @@ struct GoalDetailView: View {
                             HStack {
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(.green)
-                                Text("New saving")
+                                Text("NewSaving")
                                     .foregroundStyle(Color("TextPrimaryColor"))
                             }
                         }                        .fullScreenCover(isPresented: $addSavingModal) {
@@ -93,7 +93,7 @@ struct GoalDetailView: View {
                     }
                     
                     // Delete Goal Button
-                    Button("Delete Goal", role: .destructive){
+                    Button("DeleteGoal", role: .destructive){
                         deleteItem(goal: goal)
                         dismiss()
                     }
@@ -148,12 +148,12 @@ private let timeFormatter: DateFormatter = {
 
 // A helper view to create a consistent layout for detail rows
 struct DetailRow: View {
-    var label: String
+    var label: Text
     var value: String
     
     var body: some View {
         HStack {
-            Text(label).padding(.leading)
+            label.padding(.leading)
             Spacer()
             Text(value)
         }

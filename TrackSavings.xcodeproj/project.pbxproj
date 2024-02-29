@@ -12,6 +12,7 @@
 		6ADC0A4C2B7BB369006C2134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ADC0A4B2B7BB369006C2134 /* Assets.xcassets */; };
 		6ADC0A4F2B7BB369006C2134 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6ADC0A4E2B7BB369006C2134 /* Preview Assets.xcassets */; };
 		6AF8295A2B826E9C0006F5F7 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF829592B826E9C0006F5F7 /* Goal.swift */; };
+		9C0E64142B8F7A1100DD2A99 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 9C0E64132B8F7A1100DD2A99 /* Localizable.xcstrings */; };
 		C8F15B8E2B8639570058AD2C /* PreviewSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F15B8D2B8639570058AD2C /* PreviewSampleData.swift */; };
 		C8F15B902B863F8A0058AD2C /* ModelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F15B8F2B863F8A0058AD2C /* ModelPreview.swift */; };
 		C8FBF9982B84E9A2008F4920 /* LocalNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FBF9972B84E9A2008F4920 /* LocalNotifications.swift */; };
@@ -29,6 +30,7 @@
 		6ADC0A4B2B7BB369006C2134 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6ADC0A4E2B7BB369006C2134 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6AF829592B826E9C0006F5F7 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		9C0E64132B8F7A1100DD2A99 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C8F15B8D2B8639570058AD2C /* PreviewSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSampleData.swift; sourceTree = "<group>"; };
 		C8F15B8F2B863F8A0058AD2C /* ModelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPreview.swift; sourceTree = "<group>"; };
 		C8FBF9972B84E9A2008F4920 /* LocalNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifications.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		6ADC0A462B7BB368006C2134 /* TrackSavings */ = {
 			isa = PBXGroup;
 			children = (
+				9C0E64122B8F7A0700DD2A99 /* Langauges */,
 				6ADC0A472B7BB368006C2134 /* TrackSavingsApp.swift */,
 				6AF829582B826E440006F5F7 /* Views */,
 				6AF8295B2B826EC90006F5F7 /* Models */,
@@ -107,6 +110,14 @@
 				EC93BA742B85299A0049C783 /* Saving.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9C0E64122B8F7A0700DD2A99 /* Langauges */ = {
+			isa = PBXGroup;
+			children = (
+				9C0E64132B8F7A1100DD2A99 /* Localizable.xcstrings */,
+			);
+			path = Langauges;
 			sourceTree = "<group>";
 		};
 		C8F15B8C2B86392E0058AD2C /* PreviewHelper */ = {
@@ -168,6 +179,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"es-419",
+				it,
 			);
 			mainGroup = 6ADC0A3B2B7BB368006C2134;
 			productRefGroup = 6ADC0A452B7BB368006C2134 /* Products */;
@@ -186,6 +199,7 @@
 			files = (
 				6ADC0A4F2B7BB369006C2134 /* Preview Assets.xcassets in Resources */,
 				6ADC0A4C2B7BB369006C2134 /* Assets.xcassets in Resources */,
+				9C0E64142B8F7A1100DD2A99 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,7 +354,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrackSavings/Preview Content\"";
-				DEVELOPMENT_TEAM = 457CNACK2W;
+				DEVELOPMENT_TEAM = TB6ZG6UNM2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = HiveCents;
@@ -374,7 +388,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrackSavings/Preview Content\"";
-				DEVELOPMENT_TEAM = 457CNACK2W;
+				DEVELOPMENT_TEAM = TB6ZG6UNM2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = HiveCents;
