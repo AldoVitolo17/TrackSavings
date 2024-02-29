@@ -26,7 +26,7 @@ struct AddSavingView: View {
     var body: some View {
         NavigationView {
             VStack{
-                TextField("", text: $amountText, prompt: Text("Saved Amount")
+                TextField("", text: $amountText, prompt: Text("SavedAmount")
                     .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                     .foregroundStyle(Color("TextTertiaryColor"))
                     .padding()
@@ -78,7 +78,7 @@ struct AddSavingView: View {
                 .listStyle(.plain)
                 .background(Color.clear)
             }
-            .navigationTitle("Add Saving")
+            .navigationTitle("AddSaving")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
