@@ -9,16 +9,17 @@ import Foundation
 import SwiftData
 import SwiftUI
 
+
 let previewContainer: ModelContainer = {
     do {
-        let schema1 = Schema([
+        let schema2 = Schema([
             Goal.self,
             Saving.self
         ])
         
-        let modelConfiguration = ModelConfiguration(schema: schema1, isStoredInMemoryOnly: true)
+        let modelConfiguration = ModelConfiguration(schema: schema2, isStoredInMemoryOnly: true)
         
-        let container = try ModelContainer(for: schema1)
+        let container = try ModelContainer(for: schema2)
         
         Task{ @MainActor in
             let context = container.mainContext
