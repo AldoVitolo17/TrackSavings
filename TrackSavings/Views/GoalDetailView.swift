@@ -34,7 +34,7 @@ struct GoalDetailView: View {
                             .padding(.top, -15)
                             .font(.subheadline)
                         
-                        CircularProgressView(progress: totalSavings, image: goal.image)
+                        SemiCircularProgressView(progress: totalSavings, image: goal.image)
                             .frame(width: 150, height: 250) // Adjust size as needed
                         
                         //General info of Goal
