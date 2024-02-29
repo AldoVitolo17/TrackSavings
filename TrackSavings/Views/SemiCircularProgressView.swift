@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct CircularProgressView: View {
+struct SemiCircularProgressView: View {
     @State var progress: Double
     @State var image: String
     let ringDiameter = 150.0
@@ -26,12 +26,12 @@ struct CircularProgressView: View {
                     Image(systemName: "\(image)")
                         .font(.system(size: ringDiameter/3, weight: .bold, design:.rounded))
                 }
-//            Circle()
-//                .trim(from: 0, to: progress)
-//                .stroke(Color("PrimaryColor"),
-//                        style: StrokeStyle(lineWidth: width, lineCap: .round)
-//                )
-//                .rotationEffect(Angle(degrees: -90))
+            Circle()
+                .trim(from: 0, to: progress)
+                .stroke(Color("PrimaryColor"),
+                        style: StrokeStyle(lineWidth: width, lineCap: .round)
+                )
+                .rotationEffect(Angle(degrees: -90))
         }
         .frame(width: ringDiameter, height: ringDiameter)
         
@@ -39,5 +39,5 @@ struct CircularProgressView: View {
 }
 
 #Preview {
-    CircularProgressView(progress: 0.3, image: "car")
+    SemiCircularProgressView(progress: 0.5, image: "car")
 }
