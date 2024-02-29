@@ -4,13 +4,16 @@
     "" : {
 
     },
+    "%.f%%" : {
+
+    },
     "%@" : {
 
     },
     "$%.2f" : {
 
     },
-    "£%.2f" : {
+    "$0,00" : {
 
     },
     "Add" : {
@@ -35,6 +38,9 @@
           }
         }
       }
+    },
+    "Add Savings" : {
+
     },
     "AddGoalPlaceholder" : {
       "extractionState" : "manual",
@@ -99,6 +105,12 @@
         }
       }
     },
+    "Back" : {
+
+    },
+    "Balance" : {
+
+    },
     "Calendar" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -154,6 +166,9 @@
           }
         }
       }
+    },
+    "Deadline" : {
+
     },
     "DeleteGoal" : {
       "extractionState" : "manual",
@@ -294,6 +309,9 @@
         }
       }
     },
+    "Icon" : {
+
+    },
     "Mornings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -420,6 +438,12 @@
         }
       }
     },
+    "Notifications" : {
+
+    },
+    "Saved Date" : {
+
+    },
     "SavedAmount" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -442,6 +466,15 @@
           }
         }
       }
+    },
+    "Savings History" : {
+
+    },
+    "Savings Target" : {
+
+    },
+    "Select Goal" : {
+
     },
     "SelectFromList" : {
       "extractionState" : "manual",
@@ -511,6 +544,9 @@
           }
         }
       }
+    },
+    "You have no savings yet" : {
+
     }
   },
   "version" : "1.0"

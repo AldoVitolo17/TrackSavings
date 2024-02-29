@@ -48,7 +48,7 @@ struct AddSavingView: View {
                 List{
                     HStack{
                         Image(systemName: "list.bullet.circle")
-                        Picker("Goal", selection: $selectedGoal) {
+                        Picker("Select Goal", selection: $selectedGoal) {
                             ForEach(goals, id: \.id) { goal in
                                 Text(goal.item).tag(goal.item)
                             }
@@ -66,7 +66,7 @@ struct AddSavingView: View {
                     DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
                         HStack{
                             Image(systemName: "calendar.circle")
-                            Text("Calendar")
+                            Text("Saved Date")
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))

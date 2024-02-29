@@ -32,6 +32,7 @@ struct SemiCircularProgressView: View {
                 VStack {
                     Image(systemName: "\(image)")
                         .font(.system(size: ringDiameter/3, weight: .bold, design:.rounded))
+                        .padding(.top, -20)
                     Text("\(progress*100, specifier: "%.f")%").fontWeight(.bold).font(.system(size: 37))
                 }
             }

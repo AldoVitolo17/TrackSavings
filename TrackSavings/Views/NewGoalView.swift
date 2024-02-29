@@ -29,11 +29,12 @@ struct NewGoalView: View {
     @State private var selectedItem: Item = .laptop
     
     enum Currencies: String, CaseIterable, Identifiable {
-        case eur = "EUR", usd = "USD", mxn = "MXN"
+        //case eur = "EUR", usd = "USD", mxn = "MXN"
+        case usd = "USD"
         var id: Self {self}
     }
 
-    @State private var selectedCurrrency: Currencies = .eur
+    @State private var selectedCurrrency: Currencies = .usd
 
     enum Item: String, CaseIterable, Identifiable{
         case laptop = "laptopcomputer", car = "car", house = "house", gamecontroller = "gamecontroller", food = "fork.knife", dollar = "dollarsign", pencil = "pencil", bus = "bus", bag = "bag", phone = "phone"
@@ -54,28 +55,17 @@ struct NewGoalView: View {
                     Picker("", selection: $selectedCurrrency) {
                         ForEach(Currencies.allCases) { currency in
                             Text(currency.rawValue)
-                            TextField("", text: $costText, prompt: Text("GoalAmount")
-                                .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
-                            .foregroundStyle(Color("TextTertiaryColor"))
-                            .padding()
-                            .background(Color("SecondaryColor"))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .frame(width: 300, height: 200, alignment: .center)
-                            .multilineTextAlignment(.center)
-                            .font(.title)
-                            .focused($keyboardFocused)
-                            .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    keyboardFocused = true
-                                }
-                            }
-                            .frame(minWidth: 80, idealWidth: 80, maxWidth: 90)
+                                .lineLimit(1)
+                                .scaledToFit()
                         }
                     }
+
                     Spacer()
-                    TextField("", text: $costText, prompt: Text("Goal Amount")
-                        .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                    TextField("", text: $costText, prompt: 
+                                Text("Goal Amount")
+                                    .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                         .foregroundStyle(Color("TextTertiaryColor"))
+                        .scaledToFit()
                         .font(.title)
                         .multilineTextAlignment(.leading)
                         .focused($keyboardFocused)
@@ -107,7 +97,7 @@ struct NewGoalView: View {
                     DatePicker(selection: $date, in: Date.now..., displayedComponents: .date) {
                         HStack{
                             Image(systemName: "calendar.circle")
-                            Text("Calendar").fontDesign(.rounded)
+                            Text("Deadline").fontDesign(.rounded)
                         }
                     }
                     .foregroundStyle(Color("TextPrimaryColor"))
@@ -116,7 +106,7 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "bell.circle")
-                        Picker("Notification", selection: $selectedReminder) {
+                        Picker("Notifications", selection: $selectedReminder) {
                             Text("Mornings").tag(Reminder.morning)
                             Text("Afternoons").tag(Reminder.afternoon)
                             Text("Nights").tag(Reminder.night)
@@ -129,7 +119,7 @@ struct NewGoalView: View {
                     
                     HStack{
                         Image(systemName: "list.bullet.circle")
-                        Picker("SelectFromList", selection: $selectedItem){
+                        Picker("Icon", selection: $selectedItem){
                             Image(systemName: "laptopcomputer").tag(NewGoalView.Item.laptop)
                             Image(systemName: "car").tag(NewGoalView.Item.car)
                             Image(systemName: "house").tag(NewGoalView.Item.house)
