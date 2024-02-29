@@ -14,9 +14,11 @@ struct GoalDetailView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+    @State private var amountText: String = ""
+
     @Query private var savingsEntries : [Saving]
-    
+    @State private var amount: Double = Double()
+
     let goal: Goal
     
     var body: some View {
@@ -24,49 +26,83 @@ struct GoalDetailView: View {
             ZStack(alignment: .top) {
                 DynamicQueryView( filterByTitle: goal.item) {(savings: [Saving], totalSavings: Double) in
                     
-                    VStack(spacing: 20) {
+                    VStack {
                         //Top Icon
-                        Text("$\(totalSavings, specifier: "%.2f")")
+                        Text("$\(goal.cost, specifier: "%.2f")")
                             .font(.title)
                             .padding(.top)
                             .bold()
-                        Text("Goal")
-                            .padding(.top, -15)
+                        Text(LocalizedStringKey("Goal"))
+                            .padding(.top, -18)
                             .font(.subheadline)
+                            .foregroundStyle(Color.secondary)
+
+                        CircularProgressView(progress: totalSavings/goal.cost, image: goal.image)
+                            .frame(width: 150, height: 150) // Adjust size as needed
                         
-                        CircularProgressView(progress: totalSavings, image: goal.image)
-                            .frame(width: 150, height: 250) // Adjust size as needed
+                        HStack{
+                            VStack{
+                                Text(LocalizedStringKey("Balance"))
+                                    .bold()
+                                Text("$\(totalSavings, specifier: "%.2f")")
+                            }
+                            .padding()
+                            Spacer()
+                            VStack{
+                                Text(LocalizedStringKey("Savings Target"))
+                                    .bold()
+                                Text("$\(totalSavings, specifier: "%.2f")")
+                            }
+                            .padding()
+                            Spacer()
+                            VStack{
+                                Text(LocalizedStringKey("Deadline"))
+                                    .bold()
+                                Text("\(goal.date, formatter: dateFormatter)")
+                            }
+                            .padding()
+                        }
                         
                         //General info of Goal
-                        VStack(alignment: .leading, spacing: 8) {
-                            
-                            Text("General")
+                        VStack{
+                            HStack{
+                                TextField("", text: $amountText, prompt: Text("$0,00")
+                                    .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                                    .foregroundStyle(Color("TextTertiaryColor"))
+                                    .font(.title)
+                                    .multilineTextAlignment(.center)
+                                    .font(.title)
+                                    .keyboardType(.decimalPad)
+                                    .onChange(of: amountText) { oldValue, newValue in
+                                        self.amount = Double(newValue) ?? 0 // Convert the input to Double
+                                    }
+
+                                
+                                Button(action: { addSavingModal.toggle() }) {
+                                    Text("Add Savings")
+                                        .bold()
+                                        .padding()
+                                        .lineLimit(1)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color("PrimaryColor"))
+                                        .foregroundStyle(Color("TextTertiaryColor"))
+                                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                                }
+                                .padding()
+                            }
+                            .frame(width: 300, height: 200, alignment: .center)
+                            .background(Color("TextSecondaryColor").opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Divider()
+                            Text(LocalizedStringKey("Savings History"))
                                 .font(.caption)
                                 .foregroundStyle(Color.secondary)
                                 .padding(.leading)
-                            
-                            DetailRow(label: Text(LocalizedStringKey("TotalCost")), value: String(format: "£%.2f", goal.cost))
-                            Divider()
-                            
-                            DetailRow(label: Text(LocalizedStringKey("TotalSaved")), value: String(format: "£%.2f", totalSavings))
-                            Divider()
-                            
                         }
-                        .padding([.top, .horizontal])
-                        
-                        // New Saving Button
-                        Button(action: { addSavingModal.toggle() }) {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundColor(.green)
-                                Text("NewSaving")
-                                    .foregroundStyle(Color("TextPrimaryColor"))
-                            }
-                        }                        .fullScreenCover(isPresented: $addSavingModal) {
-                            AddSavingView(isPresented: $addSavingModal)
-                        }
-                        .padding([.horizontal, .top])
-                        
                         
                         ScrollView {
                             ForEach(savings) { saving in
@@ -89,15 +125,14 @@ struct GoalDetailView: View {
                             }
                         }
                         //                        .onDelete(perform: deleteSaving)
-                        
+                        // Delete Goal Button
+                        Button("DeleteGoal", role: .destructive){
+                            deleteItem(goal: goal)
+                            dismiss()
+                        }
+                        .padding([.bottom, .horizontal])
                     }
                     
-                    // Delete Goal Button
-                    Button("DeleteGoal", role: .destructive){
-                        deleteItem(goal: goal)
-                        dismiss()
-                    }
-                    .padding([.bottom, .horizontal])
                 }
                 .navigationTitle(goal.item)
                 .navigationBarTitleDisplayMode(.inline)
@@ -106,7 +141,7 @@ struct GoalDetailView: View {
                 .toolbarBackground(.visible, for: .navigationBar)
                 .background(Color("BackgroundColor"))
                 .navigationBarItems(
-                    leading: Button("Done") { dismiss() })
+                    leading: Button(LocalizedStringKey("Back")) { dismiss() })
             }
         }
         .navigationBarBackButtonHidden(true)
