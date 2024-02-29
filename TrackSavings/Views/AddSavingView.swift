@@ -16,7 +16,6 @@ struct AddSavingView: View {
     
     @Query private var savings: [Saving]
     @Query private var goals: [Goal]
-    
     @State private var amountText: String = ""
     @State private var selectedGoal: String = ""
     @State private var amount: Double = Double()

@@ -28,6 +28,13 @@ struct NewGoalView: View {
     
     @State private var selectedItem: Item = .laptop
     
+    enum Currencies: String, CaseIterable, Identifiable {
+        case eur = "EUR", usd = "USD", mxn = "MXN"
+        var id: Self {self}
+    }
+
+    @State private var selectedCurrrency: Currencies = .eur
+
     enum Item: String, CaseIterable, Identifiable{
         case laptop = "laptopcomputer", car = "car", house = "house", gamecontroller = "gamecontroller", food = "fork.knife", dollar = "dollarsign", pencil = "pencil", bus = "bus", bag = "bag", phone = "phone"
         var id: Self {self}
@@ -43,26 +50,50 @@ struct NewGoalView: View {
     var body: some View {
         NavigationView {
             VStack{
-                TextField("", text: $costText, prompt: Text("GoalAmount")
-                    .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
-                    .foregroundStyle(Color("TextTertiaryColor"))
-                    .padding()
-                    .background(Color("SecondaryColor"))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .frame(width: 300, height: 200, alignment: .center)
-                    .multilineTextAlignment(.center)
-                    .font(.title)
-                    .focused($keyboardFocused)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            keyboardFocused = true
+                HStack{
+                    Picker("", selection: $selectedCurrrency) {
+                        ForEach(Currencies.allCases) { currency in
+                            Text(currency.rawValue)
+                            TextField("", text: $costText, prompt: Text("GoalAmount")
+                                .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                            .foregroundStyle(Color("TextTertiaryColor"))
+                            .padding()
+                            .background(Color("SecondaryColor"))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(width: 300, height: 200, alignment: .center)
+                            .multilineTextAlignment(.center)
+                            .font(.title)
+                            .focused($keyboardFocused)
+                            .onAppear {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    keyboardFocused = true
+                                }
+                            }
+                            .frame(minWidth: 80, idealWidth: 80, maxWidth: 90)
                         }
                     }
-                    .keyboardType(.decimalPad)
-                .onChange(of: costText) { newValue in
-                    self.cost = Double(newValue) ?? 0 // Convert the input to Double
+                    Spacer()
+                    TextField("", text: $costText, prompt: Text("Goal Amount")
+                        .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
+                        .foregroundStyle(Color("TextTertiaryColor"))
+                        .font(.title)
+                        .multilineTextAlignment(.leading)
+                        .focused($keyboardFocused)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                keyboardFocused = true
+                            }
+                        }
+                        .keyboardType(.decimalPad)
+                        .onChange(of: costText) { newValue in
+                            self.cost = Double(newValue) ?? 0 // Convert the input to Double
+                        }
                 }
-                
+                .padding()
+                .background(Color("SecondaryColor"))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(width: 300, height: 200, alignment: .center)
+
                 List{
                     HStack{
                         Image(systemName: "target")
@@ -162,7 +193,7 @@ struct NewGoalView: View {
             print("ExistingGoal")
         } else {
             // Save the goal if the item name is unique
-            let newGoal = Goal(item: item, image: selectedItem.rawValue, cost: cost, date: date, reminder: selectedReminder.rawValue)
+            let newGoal = Goal(item: item, image: selectedItem.rawValue, cost: cost, date: date, reminder: selectedReminder.rawValue, currency: selectedCurrrency.rawValue)
             modelContext.insert(newGoal)
             try? modelContext.save()
             dismiss()
