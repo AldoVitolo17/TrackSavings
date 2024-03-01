@@ -13,11 +13,21 @@
     "$%.2f" : {
 
     },
-    "$%.2f total" : {
-
-    },
     "$%.2f/day" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$%.2f/día"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$%.2f/giorno"
+          }
+        }
+      }
     },
     "$0,00" : {
 
@@ -46,7 +56,20 @@
       }
     },
     "Add Savings" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar Ahorro"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi Risparmio"
+          }
+        }
+      }
     },
     "AddGoalPlaceholder" : {
       "extractionState" : "manual",
@@ -112,10 +135,36 @@
       }
     },
     "Back" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atrás"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
+          }
+        }
+      }
     },
     "Balance" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balance"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Budget Attuale"
+          }
+        }
+      }
     },
     "Calendar" : {
       "extractionState" : "manual",
@@ -174,7 +223,14 @@
       }
     },
     "Deadline" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha límite"
+          }
+        }
+      }
     },
     "DeleteGoal" : {
       "extractionState" : "manual",
@@ -267,7 +323,20 @@
       }
     },
     "Goal Amount" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cantidad Objetivo"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obiettivo Totale"
+          }
+        }
+      }
     },
     "GoalAmount" : {
       "extractionState" : "manual",
@@ -281,7 +350,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cantidad Meta"
+            "value" : "Cantidad Objetivo"
           }
         },
         "it" : {
@@ -310,13 +379,26 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nome Obiettivo"
+            "value" : "Cosa vuoi comprare?"
           }
         }
       }
     },
     "Icon" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ícono"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Categoria"
+          }
+        }
+      }
     },
     "Mornings" : {
       "extractionState" : "manual",
@@ -439,16 +521,36 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nottifiche"
+            "value" : "Notifiche"
           }
         }
       }
     },
     "Notifications" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificaciones"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifiche"
+          }
+        }
+      }
     },
     "Saved Date" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha Ahorrada"
+          }
+        }
+      }
     },
     "SavedAmount" : {
       "extractionState" : "manual",
@@ -474,13 +576,52 @@
       }
     },
     "Savings History" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de ahorros"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronologia"
+          }
+        }
+      }
     },
     "Savings Target" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahorro objetivo"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quota Stabilita"
+          }
+        }
+      }
     },
     "Select Goal" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar Meta"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleziona un obiettivo"
+          }
+        }
+      }
     },
     "SelectFromList" : {
       "extractionState" : "manual",
@@ -552,7 +693,20 @@
       }
     },
     "You have no savings yet" : {
-
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tienes ahorros todavía"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun risparmio inserito"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
