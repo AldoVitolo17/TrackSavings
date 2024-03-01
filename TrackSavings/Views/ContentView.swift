@@ -120,6 +120,9 @@ struct ContentView: View {
                 .ignoresSafeArea(edges: .bottom)
             }
         }
+        .onAppear{
+            UIApplication.shared.applicationIconBadgeNumber = 0
+        }
     }
 }
 
