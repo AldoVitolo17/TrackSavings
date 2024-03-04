@@ -141,6 +141,7 @@ struct GoalDetailView: View {
                                 Button("DeleteGoal", role: .destructive){
                                     deleteItem(goal: goal)
                                     dismiss()
+                                    NotificationManager.instance.deleteGoalNotifications(goal: goal.item)
                                 }
                                 .padding()
                             }

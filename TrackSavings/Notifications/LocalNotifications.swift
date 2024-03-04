@@ -14,7 +14,6 @@ class NotificationManager {
     
     static let instance = NotificationManager()
     
-    
     func requestAuthorization (){
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         UNUserNotificationCenter.current().requestAuthorization(options: options) { success, error in
@@ -26,18 +25,14 @@ class NotificationManager {
         }
     }
     
-    func requestNotifications(reminder: String) {
+    func requestNotifications(reminder: String, goal: String) {
         
         //Notifications content
-        let contentT = UNMutableNotificationContent()
-        contentT.title = "Save Money!!"
-        contentT.subtitle = "it's tiiiimeeeeee"
-        contentT.sound = .default
-        contentT.badge = 1
-        
-        //Triggers
-        /*Time*/
-        //        let triggerTime = UNTimeIntervalNotificationTrigger(timeInterval: 5.0 , repeats: false)
+        let content = UNMutableNotificationContent()
+        content.title = "Save Money!!"
+        content.subtitle = "it's tiiiimeeeeee"
+        content.sound = .default
+        content.badge = 1
         
         /*Calendar*/
         var dateComponents = DateComponents()
@@ -53,66 +48,21 @@ class NotificationManager {
             dateComponents.hour = 16
         }
         
-        let triggerCalendar = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let tirgger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
-        //        /*Location*/
-        //        let coordinates = CLLocationCoordinate2D(latitude: 40.83625219241846, longitude: 14.306192447547891)
-        //
-        //        let region = CLCircularRegion(
-        //            center: coordinates,
-        //            radius: 100,
-        //            identifier: UUID().uuidString)
-        //
-        //        region.notifyOnExit = true
-        //        region.notifyOnEntry = true
-        //
-        //        let triggerLocation = UNLocationNotificationTrigger(region: region, repeats: true)
-        //
-        //        let requestTime = UNNotificationRequest(identifier: UUID().uuidString,
-        //                                            content: contentT,
-        //                                            trigger: triggerTime)
-        //        UNUserNotificationCenter.current().add(requestTime)
-        
-        let requestCalendar = UNNotificationRequest(identifier: UUID().uuidString,
-                                                    content: contentT,
-                                                    trigger: triggerCalendar)
+        let requestCalendar = UNNotificationRequest(identifier: goal,
+                                                    content: content,
+                                                    trigger: tirgger)
         UNUserNotificationCenter.current().add(requestCalendar)
-        //
-        //        let requestLocation = UNNotificationRequest(identifier: UUID().uuidString,
-        //                                            content: contentL,
-        //                                            trigger: triggerLocation)
-        //        UNUserNotificationCenter.current().add(requestLocation)
-        //    }
-        
-        func cancelNotifications(){
-            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            
-            
-        }
         
     }
+    
+    func cancelNotifications(){
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+    
+    func deleteGoalNotifications(goal: String){
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [goal])
+    }
 }
-
-//struct LocalNotificationView: View {
-//
-////    var body: some View {
-////        VStack{
-////            Button("Request authorization"){
-////                NotificationManager.instance.requestAuthorization()
-////            }
-////        
-//////            Button("send"){
-//////                NotificationManager.instance.requestNotifications()
-//////            }
-////            
-////            Button("Cancel"){
-////                NotificationManager.instance.cancelNotifications()
-////            }
-////            .onAppear{
-////                let null = 0
-////                UNUserNotificationCenter.current().setBadgeCount(null)
-////            }
-////        }
-////    }
-//}

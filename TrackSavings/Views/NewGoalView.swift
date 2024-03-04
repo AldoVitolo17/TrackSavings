@@ -188,7 +188,7 @@ struct NewGoalView: View {
             try? modelContext.save()
             dismiss()
             NotificationManager.instance.requestAuthorization()
-            NotificationManager.instance.requestNotifications(reminder: selectedReminder.rawValue)
+            NotificationManager.instance.requestNotifications(reminder: selectedReminder.rawValue, goal: item)
         }
     }
 }

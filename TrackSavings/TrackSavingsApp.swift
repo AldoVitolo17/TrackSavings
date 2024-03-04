@@ -10,20 +10,6 @@ import SwiftData
 
 @main
 struct TrackSavingsApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Goal.self,
-            Saving.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -31,3 +17,27 @@ struct TrackSavingsApp: App {
         .modelContainer(sharedModelContainer)
     }
 }
+
+@MainActor
+let sharedModelContainer: ModelContainer = {
+    let schema = Schema([
+        Goal.self,
+        Saving.self
+    ])
+    let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+
+    do {
+        let container = try ModelContainer(for: schema)
+        
+        var goalLimit = FetchDescriptor<Goal>()
+        goalLimit.fetchLimit = 1
+        
+        guard try container.mainContext.fetch(goalLimit).count == 0 else { return container}
+        
+        NotificationManager.instance.cancelNotifications()
+        
+        return container
+    } catch {
+        fatalError("Could not create ModelContainer: \(error)")
+    }
+}()
