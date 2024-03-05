@@ -175,7 +175,8 @@ struct NewGoalView: View {
     //MARK: - private mehods
     // In NewGoalView
     private func saveGoal() {
-        let existingGoal = goals.first { $0.item == item }
+        let trimmedItem = item.trimmingCharacters(in: .whitespacesAndNewlines)
+        let existingGoal = goals.first { $0.item == trimmedItem }
         
         if let existingGoal = existingGoal {
             // Prompt the user that the goal name is already used
@@ -183,7 +184,7 @@ struct NewGoalView: View {
             print("ExistingGoal")
         } else {
             // Save the goal if the item name is unique
-            let newGoal = Goal(item: item, image: selectedItem.rawValue, cost: cost, date: date, reminder: selectedReminder.rawValue, currency: selectedCurrrency.rawValue)
+            let newGoal = Goal(item: trimmedItem, image: selectedItem.rawValue, cost: cost, date: date, reminder: selectedReminder.rawValue, currency: selectedCurrrency.rawValue)
             modelContext.insert(newGoal)
             try? modelContext.save()
             dismiss()
