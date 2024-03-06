@@ -30,7 +30,7 @@ final class Goal: Identifiable {
     }
     
     static func exampleGoal() -> Goal {
-        let goal = Goal(item: "dyson", image: "car", cost: 533.00, date: Date.now, reminder: "morning", currency: "EUR")
+        let goal = Goal(item: "dykson", image: "car", cost: 533.00, date: Date.now, reminder: "morning", currency: "USD")
         return goal
     }
 }

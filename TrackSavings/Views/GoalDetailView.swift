@@ -18,7 +18,7 @@ struct GoalDetailView: View {
     @Query private var savingsEntries : [Saving]
     @State private var amount: Double = Double()
     @State private var savingsTarget = 0.0
-    @State var progress: Double = Double()
+    @State var pros: Bool = true
     let ringDiameter = 250.0
     let width = 20.0
     
@@ -89,7 +89,9 @@ struct GoalDetailView: View {
                                     }
                                     
                                     
-                                    Button(action: { saveSaving()
+                                    Button(action: { 
+                                        saveSaving()
+                                        pros.toggle()
                                         toastMessage = "Saving added correctly"
                                         withAnimation { showToast = true }
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -127,6 +129,9 @@ struct GoalDetailView: View {
                                         Text(LocalizedStringKey("Savings Target"))
                                             .bold()
                                         Text("$\(savingsTarget, specifier: "%.2f/day")")
+                                            .onChange(of: pros) {
+                                                savingsTarget = (goal.cost - totalSavings)/Double(calculatePeriods(end: goal.date))
+                                            }
                                     }
                                     .padding()
                                     
