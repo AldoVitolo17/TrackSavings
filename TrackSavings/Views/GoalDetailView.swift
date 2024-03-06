@@ -280,10 +280,12 @@ struct GoalDetailView: View {
     }
         
     private func deleteItem(goal: Goal) {
-        modelContext.delete(goal)
         for saving in savingsEntries {
-            modelContext.delete(saving)
+            if saving.goal == goal.id {
+                modelContext.delete(saving)
+            }
         }
+        modelContext.delete(goal)
     }
     
     //    private func deleteSaving(offsets: IndexSet) {
