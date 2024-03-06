@@ -29,6 +29,9 @@
         }
       }
     },
+    "$%.f/$%.f" : {
+
+    },
     "$0,00" : {
 
     },
@@ -151,6 +154,7 @@
       }
     },
     "Balance" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
@@ -307,6 +311,7 @@
       }
     },
     "Goal" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es-419" : {
           "stringUnit" : {
@@ -399,6 +404,9 @@
           }
         }
       }
+    },
+    "Missing" : {
+
     },
     "Mornings" : {
       "extractionState" : "manual",

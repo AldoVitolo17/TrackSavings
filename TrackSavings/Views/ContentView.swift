@@ -23,7 +23,10 @@ struct ContentView: View {
         NavigationStack {
             ZStack{
                 Color("BackgroundColor").zIndex(-1.0)
+                
+                
                 VStack {
+                    
                     ZStack{
                         Color("PrimaryColor")
                             .clipShape(RoundedRectangle(cornerRadius: 25.0))
@@ -40,6 +43,8 @@ struct ContentView: View {
                         .foregroundStyle(Color("TextTertiaryColor"))
                         .padding()
                     }
+                    
+                    
                     VStack{
                         HStack{
                             Text("MyGoals")
@@ -125,6 +130,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()

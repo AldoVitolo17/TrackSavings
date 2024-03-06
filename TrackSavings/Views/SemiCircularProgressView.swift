@@ -27,12 +27,13 @@ struct SemiCircularProgressView: View {
                             endAngle: .degrees(180),
                             clockwise: true)
             }
-            .stroke(Color("TextPrimaryColor"), style: StrokeStyle(lineWidth: width, lineCap: .round))
+            .stroke(Color(Color.gray.opacity(0.4)), style: StrokeStyle(lineWidth: width, lineCap: .round))
             .overlay() {
                 VStack {
                     Image(systemName: "\(image)")
-                        .font(.system(size: ringDiameter/3, weight: .bold, design:.rounded))
+                        .font(.system(size: ringDiameter/3.2, weight: .bold, design:.rounded))
                         .padding(.top, -20)
+                    
                     Text("\(progress*100, specifier: "%.f")%").fontWeight(.bold).font(.system(size: 37))
                 }
             }
