@@ -17,7 +17,10 @@ struct GoalDetailView: View {
     @Query private var savingsEntries : [Saving]
     @State private var amount: Double = Double()
     @State private var savingsTarget = 0.0
-
+    @State var progress: Double = Double()
+    let ringDiameter = 250.0
+    let width = 20.0
+    
     let goal: Goal
     
     var body: some View {
@@ -32,79 +35,114 @@ struct GoalDetailView: View {
                             
                             VStack {
                                 //Top Icon
-                                Text("$\(goal.cost, specifier: "%.2f")")
-                                    .font(.title)
-                                    .padding(.top)
-                                    .bold()
-                                Text(LocalizedStringKey("Goal"))
-                                    .padding(.top, -18)
-                                    .font(.subheadline)
-                                    .foregroundStyle(Color.secondary)
                                 
-                                SemiCircularProgressView(progress: totalSavings/goal.cost, image: goal.image)
-                                    .frame(width: 150, height: 150) // Adjust size as needed
-                                    .padding(.top, 60)
+                                ZStack {
+                                    Path { path in
+                                        path.addArc(center: CGPoint(x: ringDiameter / 2, y: ringDiameter / 2),
+                                                    radius: CGFloat(ringDiameter / 2),
+                                                    startAngle: .degrees(0),
+                                                    endAngle: .degrees(180),
+                                                    clockwise: true)
+                                    }
+                                    .stroke(Color(Color.gray.opacity(0.4)), style: StrokeStyle(lineWidth: width, lineCap: .round))
+                                    .overlay() {
+                                        VStack {
+                                            Image(systemName: "\(goal.image)")
+                                                .font(.system(size: ringDiameter/3.2, weight: .bold, design:.rounded))
+                                                .padding(.top, -20)
+                                            
+//                                            Text("\((totalSavings/goal.cost)*100, specifier: "%.f")%")
+                                            Text("$\(totalSavings, specifier: "%.f")/$\(goal.cost, specifier: "%.f")")
+                                                .fontWeight(.bold)
+                                                .font(.title)
+                                        }
+                                    }
+                                    
+                                    Path { path in
+                                        path.addArc(center: CGPoint(x: ringDiameter / 2, y: ringDiameter / 2),
+                                                    radius: CGFloat(ringDiameter / 2),
+                                                    startAngle: .degrees(180),
+                                                    endAngle: .degrees(180 - (min(totalSavings/goal.cost, 1.0) * 180)),
+                                                    clockwise: true)
+                                    }
+                                    .stroke(Color("PrimaryColor"),
+                                            style: StrokeStyle(lineWidth: width, lineCap: .round)
+                                    )
+                                    .rotationEffect(Angle(degrees: 180))
+                                    .scaleEffect(x: -1, y: 1, anchor: .center)
+                                }
+                                .frame(width: ringDiameter, height: ringDiameter)
+                                .frame(width: 150, height: 130) // Adjust size as needed
+                                .padding(.top, 80)
                                 
                                 HStack{
                                     TextField("", text: $amountText, prompt: Text("$0,00")
-                                        .foregroundColor(Color("TextPrimaryColor").opacity(0.36))) // Bind to the String
-                                    .foregroundStyle(Color("TextPrimaryColor"))
-                                    .font(.title)
-                                    .multilineTextAlignment(.center)
-                                    .font(.title)
-                                    .keyboardType(.decimalPad)
-                                    .onChange(of: amountText) { oldValue, newValue in
-                                        self.amount = Double(newValue) ?? 0 // Convert the input to Double
-                                    }
+                                        .font(.title)
+                                        .foregroundColor(Color("TextPrimaryColor")
+                                            .opacity(0.36))) // Bind to the String
+                                        .foregroundStyle(Color("TextPrimaryColor"))
+                                        .multilineTextAlignment(.center)
+                                        .keyboardType(.decimalPad)
+                                        .onChange(of: amountText) { oldValue, newValue in
+                                            self.amount = Double(newValue) ?? 0 // Convert the input to Double
+                                        }
                                     
-                                    
-                                    Button(action: { saveSaving() }) {
+                                    Button(action: { saveSaving(); hideKeyboard(); progress += amount}) {
                                         Text("Add Savings")
                                             .bold()
                                             .padding()
                                             .lineLimit(1)
                                             .scaledToFill()
-                                            .frame(maxWidth: .infinity)
                                             .background(Color("PrimaryColor"))
                                             .foregroundStyle(Color("TextTertiaryColor"))
                                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
                                     }
                                     .padding(.horizontal, 8)
+                                    
                                 }
                                 .frame(width: 300, height: 70, alignment: .center)
-                                .background(Color("TextPrimaryColor").opacity(0.1))
+                                .background(Color("TextPrimaryColor")
+                                    .opacity(0.1))
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 
                                 HStack{
                                     VStack{
-                                        Text(LocalizedStringKey("Balance"))
+                                        Text(LocalizedStringKey("Missing"))
                                             .bold()
-                                        Text("$\(totalSavings, specifier: "%.2f")")
+                                        Text("$\(goal.cost - totalSavings, specifier: "%.2f")")
                                     }
                                     .padding()
+                                    
                                     Spacer()
+                                    
                                     VStack{
                                         Text(LocalizedStringKey("Savings Target"))
                                             .bold()
                                         Text("$\(savingsTarget, specifier: "%.2f/day")")
                                     }
                                     .padding()
+                                    
                                     Spacer()
+                                    
                                     VStack{
                                         Text(LocalizedStringKey("Deadline"))
                                             .bold()
+                                        
                                         Text("\(goal.date, formatter: dateFormatter)")
                                     }
                                     .padding()
                                 }
                                 
-                                VStack(alignment: .leading) {
-                                    Divider()
+                                HStack{
                                     Text(LocalizedStringKey("Savings History"))
-                                        .font(.title3)
+                                        .font(.subheadline)
                                         .foregroundStyle(Color.secondary)
                                         .padding(.leading)
+                                    
+                                    Spacer()
                                 }
+                                .padding(.leading)
+                                .padding(.bottom, 8)
                                 
                                 if savings.isEmpty{
                                     VStack{
@@ -116,6 +154,7 @@ struct GoalDetailView: View {
                                         Spacer()
                                     }
                                 }
+                                
                                 ForEach(savings) { saving in
                                     HStack(alignment: .center){
                                         Image(systemName: "dollarsign.circle.fill")
@@ -136,7 +175,6 @@ struct GoalDetailView: View {
                                 }
                                 Spacer()
                                 // Delete Goal Button
-                                Divider()
                                 
                                 Button("DeleteGoal", role: .destructive){
                                     deleteItem(goal: goal)
@@ -228,7 +266,11 @@ private let timeFormatter: DateFormatter = {
     return formatter
 }()
 
+
+
+
 //MARK: - Query for filtering and calculating savings
+
 public struct DynamicQueryView<T: PersistentModel, Content: View>: View {
     @Query var query: [T]
     let content: ( [T], Double ) -> Content
@@ -253,6 +295,8 @@ extension DynamicQueryView where T: Saving {
         self.init(descriptor: FetchDescriptor(predicate: filter, sortBy: sort), content: content)
     }
 }
+
+
 
 #Preview {
     ModelPreview{ goal in
