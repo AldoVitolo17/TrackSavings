@@ -13,7 +13,8 @@ struct GoalDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @State private var amountText: String = ""
-
+    @State private var showToast = false // State to control toast visibility
+    @State private var toastMessage = "" // State to hold the toast message
     @Query private var savingsEntries : [Saving]
     @State private var amount: Double = Double()
     @State private var savingsTarget = 0.0
@@ -58,7 +59,13 @@ struct GoalDetailView: View {
                                     }
                                     
                                     
-                                    Button(action: { saveSaving() }) {
+                                    Button(action: { saveSaving()
+                                        toastMessage = "Saving added correctly"
+                                        withAnimation { showToast = true }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            withAnimation { showToast = false }
+                                        }})
+                                    {
                                         Text("Add Savings")
                                             .bold()
                                             .padding()
@@ -154,6 +161,7 @@ struct GoalDetailView: View {
                         savingsTarget = (goal.cost - totalSavings)/Double(calculatePeriods(end: goal.date))
                     })
                 }
+                .overlay(showToast ? Toast(message: toastMessage) : nil, alignment: .bottom)
                 .navigationTitle(goal.item)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.light, for: .navigationBar)
