@@ -98,7 +98,7 @@ struct GoalDetailView: View {
                                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
                                     }
                                     .padding(.horizontal, 8)
-                                    
+                                    .disabled(!isAmountValid) // Disable the button if isAmountValid is false
                                 }
                                 .frame(width: 300, height: 70, alignment: .center)
                                 .background(Color("TextPrimaryColor")
@@ -225,12 +225,38 @@ struct GoalDetailView: View {
     }
 
     private func saveSaving() {
-        if !amount.isZero{
-            let newSaving = Saving(amount: amount, date: Date(), goal: goal.item)
-            modelContext.insert(newSaving)
-            try? modelContext.save()
+        // Ensure the amountText is valid and not just whitespace
+        guard let newAmount = Double(amountText.trimmingCharacters(in: .whitespacesAndNewlines)), !newAmount.isZero else {
+            // Handle invalid input or zero amount appropriately
+            return
         }
+        
+        // Fetch savings for the goal to recalculate totalSavings
+        let totalSavings = savingsEntries.filter { $0.goal == goal.item }.reduce(0) { $0 + $1.amount }
+        
+        if totalSavings + newAmount > goal.cost {
+            // Notify the user that the saving would exceed the goal's cost
+            print("Cannot save more than the goal's target amount.")
+            return
+        }
+        
+        let newSaving = Saving(amount: newAmount, date: Date(), goal: goal.item)
+        modelContext.insert(newSaving)
+        try? modelContext.save()
     }
+
+    private var isAmountValid: Bool {
+        guard let newAmount = Double(amountText.trimmingCharacters(in: .whitespacesAndNewlines)), newAmount > 0 else {
+            return false
+        }
+        
+        // Assuming you have a way to calculate or access `totalSavings` within this view. If not, you might need to recalculate it here.
+        let totalSavings = savingsEntries.filter { $0.goal == goal.item }.reduce(0) { $0 + $1.amount }
+        let remaining = goal.cost - totalSavings
+        
+        return newAmount <= remaining
+    }
+
     
     // Function to hide the keyboard
     private func hideKeyboard() {
