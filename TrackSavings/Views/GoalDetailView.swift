@@ -78,16 +78,18 @@ struct GoalDetailView: View {
                                 HStack{
                                     TextField("", text: $amountText, prompt: Text("$0,00")
                                         .font(.title)
-                                        .foregroundColor(Color("TextPrimaryColor")
-                                            .opacity(0.36))) // Bind to the String
+                                        .foregroundColor(Color("TextPrimaryColor") .opacity(0.36))) // Bind to the String
                                         .foregroundStyle(Color("TextPrimaryColor"))
                                         .multilineTextAlignment(.center)
                                         .keyboardType(.decimalPad)
+                                        .font(.title)
                                         .onChange(of: amountText) { oldValue, newValue in
                                             self.amount = Double(newValue) ?? 0 // Convert the input to Double
                                         }
                                     
-                                    Button(action: { saveSaving(); hideKeyboard(); progress += amount}) {
+                                    Button(action: { 
+                                        saveSaving()
+                                    }) {
                                         Text("Add Savings")
                                             .bold()
                                             .padding()
@@ -243,6 +245,8 @@ struct GoalDetailView: View {
         let newSaving = Saving(amount: newAmount, date: Date(), goal: goal.item)
         modelContext.insert(newSaving)
         try? modelContext.save()
+        
+        hideKeyboard()
     }
 
     private var isAmountValid: Bool {
