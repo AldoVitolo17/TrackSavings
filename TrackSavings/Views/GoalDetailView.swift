@@ -18,6 +18,7 @@ struct GoalDetailView: View {
     @Query private var savingsEntries : [Saving]
     @State private var amount: Double = Double()
     @State private var savingsTarget = 0.0
+    @State private var showingDeleteAlert = false
     @State var pros: Bool = true
     let ringDiameter = 250.0
     let width = 20.0
@@ -53,8 +54,7 @@ struct GoalDetailView: View {
                                                 .padding(.top, -20)
                                             
 //                                            Text("\((totalSavings/goal.cost)*100, specifier: "%.f")%")
-                                            Text("$\(totalSavings, specifier: "%.f")/$\(goal.cost, specifier: "%.f")")
-                                                .fontWeight(.bold)
+                                            Text("$\(totalSavings, specifier: "%.f")/**$\(goal.cost, specifier: "%.f")**")
                                                 .font(.title)
                                         }
                                     }
@@ -189,12 +189,18 @@ struct GoalDetailView: View {
                                 Spacer()
                                 // Delete Goal Button
                                 
-                                Button("DeleteGoal", role: .destructive){
-                                    deleteItem(goal: goal)
-                                    dismiss()
-                                    NotificationManager.instance.deleteGoalNotifications(goal: goal.item)
+                                Button(action: {
+                                    showingDeleteAlert = true
+                                }) {
+                                    Text("Delete Goal")
                                 }
                                 .padding()
+                                .foregroundStyle(.red)
+                                .alert(isPresented: $showingDeleteAlert) {
+                                    Alert(title: Text("Confirm Deletion"), message: Text("Are you sure you want to delete this goal?"), primaryButton: .destructive(Text("Delete")) {
+                                        deleteGoal()
+                                    }, secondaryButton: .cancel())
+                                }
                             }
                             .frame(minHeight: geometry.size.height)
                         }
@@ -236,6 +242,12 @@ struct GoalDetailView: View {
             return 1
         }
         return components.day ?? 0
+    }
+    
+    private func deleteGoal() {
+        deleteItem(goal: goal)
+        dismiss()
+        NotificationManager.instance.deleteGoalNotifications(goal: goal.item)
     }
 
     private func saveSaving() {

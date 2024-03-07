@@ -30,7 +30,7 @@ class NotificationManager {
         //Notifications content
         let content = UNMutableNotificationContent()
         content.title = "Save Money!!"
-        content.subtitle = "it's tiiiimeeeeee"
+        content.subtitle = "it's time to save money for \(goal)"
         content.sound = .default
         content.badge = 1
         

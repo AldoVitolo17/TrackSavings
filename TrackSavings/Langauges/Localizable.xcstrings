@@ -29,7 +29,7 @@
         }
       }
     },
-    "$%.f/$%.f" : {
+    "$%.f/**$%.f**" : {
 
     },
     "$0,00" : {
@@ -221,7 +221,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No jala"
+            "value" : "El modelo para las previews no pudo cargar"
           }
         }
       }

@@ -52,6 +52,7 @@ struct NewGoalView: View {
         NavigationView {
             VStack{
                 HStack{
+/*
                     Picker("", selection: $selectedCurrrency) {
                         ForEach(Currencies.allCases) { currency in
                             Text(currency.rawValue)
@@ -61,13 +62,14 @@ struct NewGoalView: View {
                     }
 
                     Spacer()
-                    TextField("", text: $costText, prompt: 
+ */
+                    TextField("", text: $costText, prompt:
                                 Text("Goal Amount")
                                     .foregroundColor(Color("TextSecondaryColor").opacity(0.36))) // Bind to the String
                         .foregroundStyle(Color("TextTertiaryColor"))
                         .scaledToFit()
                         .font(.title)
-                        .multilineTextAlignment(.leading)
+                        .multilineTextAlignment(.center)
                         .focused($keyboardFocused)
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
